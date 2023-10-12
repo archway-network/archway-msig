@@ -1,0 +1,12 @@
+node_modules
+*.log*
+.nuxt
+.nitro
+.cache
+.output
+.env
+.env.production
+.env.staging
+dist
+.DS_Store
+.firebase/*

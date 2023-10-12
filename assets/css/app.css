@@ -1,0 +1,23 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer base {
+  body {
+    @apply font-sans font-normal text-base;
+    @apply min-h-screen bg-gray-warm;
+    @apply flex flex-col;
+    @apply antialiased;
+  }
+
+  #__nuxt {
+    @apply flex-1 flex flex-col;
+  }
+
+  a {
+    @apply hover:text-black-warm hover:no-underline;
+  }
+  ::selection {
+    @apply bg-black text-white;
+  }
+}

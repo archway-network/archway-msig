@@ -1,0 +1,17 @@
+{
+  "sender_account": "archway1......",
+  "name": "My Multisig",
+  "description": "A multisig instance",
+  "image_url": "",
+  "max_voting_period_in_seconds": 86400,
+  "members": [
+    {
+      "addr": "archway1......",
+      "weight": 1
+    },
+    {
+      "addr": "archway1......",
+      "weight": 1
+    }
+  ]
+}
