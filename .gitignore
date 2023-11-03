@@ -7,6 +7,7 @@ node_modules
 .env
 .env.production
 .env.staging
+.env.titus
 dist
 .DS_Store
 .firebase/*

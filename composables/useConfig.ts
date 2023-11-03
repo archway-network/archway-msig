@@ -2,6 +2,7 @@ import { computed, ComputedRef } from 'vue';
 
 import triompheChainInfo from '@/config/triomphe.config';
 import constantineChainInfo from '@/config/constantine.config';
+import titusChainInfo from '@/config/titus.config';
 
 import { TokenDenom } from '@/types';
 
@@ -30,13 +31,15 @@ type AppConfig = {
 export enum AppEnvironment {
   MAINNET = 'MAINNET',
   TESTNET = 'TESTNET',
+  TITUS = 'TITUS',
 }
 
 export const useConfig: () => AppConfig = () => {
   const runtimeConfig = useRuntimeConfig();
 
   const isMainNet = runtimeConfig.public.runtimeEnvironment === 'mainnet';
-  const chainInfo = computed(() => (isMainNet ? triompheChainInfo : constantineChainInfo));
+  const isTestNet = runtimeConfig.public.RUNTIME_ENVIRONMENT === 'testnet';
+  const chainInfo = computed(() => (isMainNet ? triompheChainInfo : isTestNet ? constantineChainInfo : titusChainInfo));
   const tokenDenom = chainInfo.value?.stakeCurrency as TokenDenom;
 
   const restEndpoint = computed(() => chainInfo.value?.rest);
@@ -50,7 +53,7 @@ export const useConfig: () => AppConfig = () => {
     : `https://testnet.mintscan.io/archway-testnet/txs`;
 
   return {
-    appEnvironment: isMainNet ? AppEnvironment.MAINNET : AppEnvironment.TESTNET,
+    appEnvironment: isMainNet ? AppEnvironment.MAINNET : isTestNet ? AppEnvironment.TESTNET : AppEnvironment.TITUS,
     appName: runtimeConfig.public.app.name,
     appAssets: {
       logo: runtimeConfig.public.app.assets.logo,
