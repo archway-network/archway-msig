@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/vue-query';
 
 import { useAuthStore } from '@/store';
 import { EstimatedFee, TokenAmount, Validator } from '@/domain';
-import { useConfig } from '@/composables';
+import { useConfig, useSigningClient } from '@/composables';
 
 export const useStakeTokensFee = (validator: Validator): Ref<TokenAmount | undefined> => {
   const { tokenDenom } = useConfig();
