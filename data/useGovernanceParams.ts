@@ -14,14 +14,12 @@ export const useGovernanceParams = async (): Promise<{
   const { data, isLoading } = useQuery({
     queryKey: [{ scope: 'governance', entity: 'params' }],
     queryFn: async () => {
-      const { restEndpoint, tokenDenom } = useConfig();
-
-      return await $fetch<any>(`${restEndpoint}/cosmos/gov/v1beta1/params/deposit`).then(data => {
-        return {
-          minDeposit: TokenAmount.makeFromAmount(data?.deposit_params?.min_deposit?.[0]?.amount || 0, tokenDenom),
-          maxDepositPeriod: data?.deposit_params?.max_deposit_period || '0s',
-        } as GovernanceDepositParams;
-      });
+      const { tokenDenom, transport } = useConfig();
+      const data = await transport.getGovernanceParams('deposit');
+      return {
+        minDeposit: TokenAmount.makeFromAmount(data?.deposit_params?.min_deposit?.[0]?.amount || 0, tokenDenom),
+        maxDepositPeriod: data?.deposit_params?.max_deposit_period || '0s',
+      };
     },
     staleTime: 1000 * 60 * 60, // cache for 60 minutes
   });

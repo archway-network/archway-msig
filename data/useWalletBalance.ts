@@ -1,8 +1,9 @@
 import { ComputedRef, Ref } from 'vue';
 import { useQuery } from '@tanstack/vue-query';
 import { TokenAmount, WalletBalances } from '@/domain';
-
 import { AccountConfig, BalancesType } from '@/types';
+
+const DEFAULT_STALE_TIME = 1000 * 60 * 5;  // cache for 5 minutes
 
 export const useWalletBalance = async (
   accountId: AccountConfig.AccountId,
@@ -22,35 +23,35 @@ export const useWalletBalance = async (
     queryKey: [{ scope: 'balances', entity: 'totalSupply' }],
     queryFn: WalletBalances.totalSupply,
     enabled: isWalletConnected && includes.includes(BalancesType.TOTAL_SUPPLY),
-    staleTime: 1000 * 60 * 5, // cache for 5 minutes
+    staleTime: DEFAULT_STALE_TIME,
   });
 
   const { data: available, isLoading: isLoadingAvailable } = useQuery({
     queryKey: [{ scope: 'balances', entity: 'available', address: accountId }],
     queryFn: WalletBalances.available,
     enabled: isWalletConnected && includes.includes(BalancesType.AVAILABLE),
-    staleTime: 1000 * 60 * 5, // cache for 5 minutes
+    staleTime: DEFAULT_STALE_TIME,
   });
 
   const { data: rewards, isLoading: isLoadingRewards } = useQuery({
     queryKey: [{ scope: 'balances', entity: 'rewards', address: accountId }],
     queryFn: WalletBalances.rewards,
     enabled: isWalletConnected && includes.includes(BalancesType.REWARDS),
-    staleTime: 1000 * 60 * 5, // cache for 5 minutes
+    staleTime: DEFAULT_STALE_TIME,
   });
 
   const { data: staked, isLoading: isLoadingStaked } = useQuery({
     queryKey: [{ scope: 'balances', entity: 'staked', address: accountId }],
     queryFn: WalletBalances.staked,
     enabled: isWalletConnected && includes.includes(BalancesType.STAKED),
-    staleTime: 1000 * 60 * 5, // cache for 5 minutes
+    staleTime: DEFAULT_STALE_TIME,
   });
 
   const { data: unbonding, isLoading: isLoadingUnbonding } = useQuery({
     queryKey: [{ scope: 'balances', entity: 'unbonding', address: accountId }],
     queryFn: WalletBalances.unbonding,
     enabled: isWalletConnected && includes.includes(BalancesType.UNBONDING),
-    staleTime: 1000 * 60 * 5, // cache for 5 minutes
+    staleTime: DEFAULT_STALE_TIME,
   });
 
   const loading = computed(() => {

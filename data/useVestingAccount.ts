@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/vue-query';
-import { useArch3, useConfig } from '@/composables';
+import { useArchwayClient, useConfig } from '@/composables';
 
 import { VestingAccount } from '@/domain';
 
@@ -16,7 +16,7 @@ export const useVestingAccount = async (
   const { data: account, isLoading } = useQuery({
     queryKey: [{ scope: 'vesting-accounts', entity: `account.${accountId.value}.status` }],
     queryFn: async () => {
-      const { client } = await useArch3();
+      const client = useArchwayClient();
       return client
         .queryContractSmart(vestingAccountId, { status: {} })
         .then(data => VestingAccount.make(accountId.value, vestingAccountId, data, tokenDenom));

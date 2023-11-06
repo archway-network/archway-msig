@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/vue-query';
-import { useArch3, useContracts } from '@/composables';
+import { useArchwayClient, useContracts } from '@/composables';
 
 import { AccountVotingConfiguration } from '@/domain';
 import { AccountConfig } from '@/types';
@@ -11,7 +11,7 @@ export const useAccountVotingConfiguration = async (accountId: AccountConfig.Acc
   const { data: votingConfiguration, isLoading: isLoadingAccountVotingConfig } = useQuery({
     queryKey: [{ scope: 'accounts', entity: `account.${accountId}.votingConfig` }],
     queryFn: async () => {
-      const { client } = await useArch3();
+      const client = useArchwayClient();
       return client.queryContractSmart(proposalsContractAddress.value, { config: {} }).then(data => AccountVotingConfiguration.make(data));
     },
     enabled: isWalletConnected,
