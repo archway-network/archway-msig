@@ -1,14 +1,12 @@
 import { ComputedRef } from 'vue';
-import { SigningArchwayClient } from '@archwayhq/arch3.js';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
-import { useContracts } from '@/composables';
+import { useContracts, useSigningClient } from '@/composables';
 import { TokenAmount, Transactions, TransactionMessages } from '@/domain';
-import { useWalletStore, useTransactionsStore } from '@/store';
+import { useTransactionsStore } from '@/store';
 
 import { AccountConfig } from '@/types';
 
 export const useRedelegateTokensMutation = async (accountId: AccountConfig.AccountId, walletAddress: ComputedRef<string | undefined>) => {
-  const walletStore = useWalletStore();
   const transactionsStore = useTransactionsStore();
   const { preProposeContractAddress } = useContracts(accountId);
 
@@ -30,7 +28,8 @@ export const useRedelegateTokensMutation = async (accountId: AccountConfig.Accou
     }) => {
       if (!walletAddress.value) return;
 
-      const transactions = Transactions.make(walletStore?.signingClient as SigningArchwayClient);
+      const signingClient = useSigningClient();
+      const transactions = Transactions.make(signingClient);
       const msg = TransactionMessages.redelegateProposal(title, description, amount, fromValidatorAddress, toValidatorAddress);
       return transactions.execute(preProposeContractAddress.value, walletAddress.value, msg);
     },

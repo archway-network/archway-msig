@@ -2,7 +2,8 @@
 export default defineNuxtConfig({
   runtimeConfig: {
     public: {
-      runtimeEnvironment: process.env.RUNTIME_ENVIRONMENT,
+      RUNTIME_ENVIRONMENT: process.env.RUNTIME_ENVIRONMENT,
+      DEFAULT_TRANSPORT: process.env.DEFAULT_TRANSPORT,
       app: {
         contracts: JSON.parse(process.env.DAODAO_CONTRACTS || '[]'),
         name: process.env.APP_NAME,

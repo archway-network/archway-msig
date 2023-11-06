@@ -4,7 +4,8 @@ import triompheChainInfo from '@/config/triomphe.config';
 import constantineChainInfo from '@/config/constantine.config';
 import titusChainInfo from '@/config/titus.config';
 
-import { TokenDenom } from '@/types';
+import { TokenDenom, ITransport } from '@/types';
+import { restTransport, rpcTransport } from '@/services/transports';
 
 type AppConfigExternalLinks = {
   ARCHWAY_DOCS: string;
@@ -26,6 +27,7 @@ type AppConfig = {
   restEndpoint: string;
   rpcEndpoint: string;
   externalLinks: AppConfigExternalLinks;
+  transport: ITransport;
 };
 
 export enum AppEnvironment {
@@ -37,10 +39,13 @@ export enum AppEnvironment {
 export const useConfig: () => AppConfig = () => {
   const runtimeConfig = useRuntimeConfig();
 
-  const isMainNet = runtimeConfig.public.runtimeEnvironment === 'mainnet';
+  const isMainNet = runtimeConfig.public.RUNTIME_ENVIRONMENT === 'mainnet';
   const isTestNet = runtimeConfig.public.RUNTIME_ENVIRONMENT === 'testnet';
   const chainInfo = computed(() => (isMainNet ? triompheChainInfo : isTestNet ? constantineChainInfo : titusChainInfo));
   const tokenDenom = chainInfo.value?.stakeCurrency as TokenDenom;
+  const transport = runtimeConfig.public.DEFAULT_TRANSPORT === 'rpc'
+    ? rpcTransport
+    : restTransport;
 
   const restEndpoint = computed(() => chainInfo.value?.rest);
   const rpcEndpoint = computed(() => chainInfo.value?.rpc);
@@ -62,6 +67,7 @@ export const useConfig: () => AppConfig = () => {
     isMainNet,
     chainInfo,
     tokenDenom,
+    transport,
     restEndpoint: restEndpoint.value,
     rpcEndpoint: rpcEndpoint.value,
     externalLinks: {

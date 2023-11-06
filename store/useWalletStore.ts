@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 import { defineStore } from 'pinia';
-import { SigningArchwayClient } from '@archwayhq/arch3.js';
+import { ArchwayClient, SigningArchwayClient } from '@archwayhq/arch3.js';
 import { v4 as uuidv4 } from 'uuid';
 import { isOfflineDirectSigner, OfflineSigner } from '@cosmjs/proto-signing';
 
@@ -19,11 +19,16 @@ const useWalletStore = defineStore('wallet', () => {
   const wallet = ref<UserWallet | undefined>();
   const address = ref<string | undefined>();
   const signingClient = ref<SigningArchwayClient | undefined>();
+  const archwayClient = ref<ArchwayClient | undefined>();
   const offlineSigner = ref<OfflineSigner | undefined>();
   const userIsUsingLedger = ref<boolean>(false);
   const walletConnectValue = ref(uuidv4());
 
   const openWalletConnect = () => (walletConnectValue.value = uuidv4());
+
+  async function initArchwayClient() {
+    archwayClient.value = await ArchwayClient.connectWithBatchClient(chainInfo.value.rpc);
+  }
 
   async function init() {
     try {
@@ -32,7 +37,7 @@ const useWalletStore = defineStore('wallet', () => {
       wallet.value = await UserWalletFactory.makeFromCache(accountUpdateListener);
       if (wallet.value) {
         address.value = wallet.value.address.address;
-        signingClient.value = await SigningArchwayClient.connectWithSigner(chainInfo.value.rpc, wallet.value.signer);
+        signingClient.value = await SigningArchwayClient.connectWithSignerAndBatchClient(chainInfo.value.rpc, wallet.value.signer);
         offlineSigner.value = wallet.value.signer;
         userIsUsingLedger.value = !isOfflineDirectSigner(wallet.value.signer);
       }
@@ -50,7 +55,7 @@ const useWalletStore = defineStore('wallet', () => {
 
       wallet.value = userWallet;
       address.value = wallet.value?.address?.address;
-      signingClient.value = await SigningArchwayClient.connectWithSigner(chainInfo.value.rpc, wallet.value.signer);
+      signingClient.value = await SigningArchwayClient.connectWithSignerAndBatchClient(chainInfo.value.rpc, wallet.value.signer);
       offlineSigner.value = wallet.value.signer;
       userIsUsingLedger.value = !isOfflineDirectSigner(wallet.value.signer);
     } catch (e) {
@@ -77,7 +82,7 @@ const useWalletStore = defineStore('wallet', () => {
     wallet.value.address = { address: strAddress, shortAddress: wallet.value.truncate(strAddress) };
     wallet.value.accountName = currentWallet.accountName;
     address.value = strAddress;
-    signingClient.value = await SigningArchwayClient.connectWithSigner(chainInfo.value.rpc, wallet.value.signer);
+    signingClient.value = await SigningArchwayClient.connectWithSignerAndBatchClient(chainInfo.value.rpc, wallet.value.signer);
     offlineSigner.value = currentWallet.offlineSigner;
     userIsUsingLedger.value = offlineSigner.value ? !isOfflineDirectSigner(offlineSigner.value) : false;
   }
@@ -85,10 +90,12 @@ const useWalletStore = defineStore('wallet', () => {
   return {
     address,
     signingClient,
+    archwayClient,
     offlineSigner,
     userIsUsingLedger,
     wallet,
     loading,
+    initArchwayClient,
     init,
     connect,
     disconnect,

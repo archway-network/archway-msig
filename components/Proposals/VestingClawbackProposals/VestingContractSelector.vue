@@ -5,7 +5,7 @@
   import { TextInput } from '@/components/Ui';
   import VestingContractOverviewSkeleton from './VestingContractOverviewSkeleton.vue';
   import VestingContractOverview from './VestingContractOverview.vue';
-  import { useArch3, useConfig } from '@/composables';
+  import { useArchwayClient, useConfig } from '@/composables';
   import { VestingAccount } from '@/domain';
   import { useAccountId } from '@/data/useAccountId';
 
@@ -25,7 +25,7 @@
       vestingAccount.value = await queryClient.fetchQuery({
         queryKey: [{ scope: 'vestingAccounts', entity: `account.${vestingContractAddress.value}.status` }],
         queryFn: async () => {
-          const { client } = await useArch3();
+          const client = useArchwayClient();
           return client
             .queryContractSmart(vestingContractAddress.value, { status: {} })
             .then(data => VestingAccount.make(accountId.value, vestingContractAddress.value, data, tokenDenom));

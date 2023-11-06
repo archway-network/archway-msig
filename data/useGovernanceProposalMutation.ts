@@ -1,13 +1,11 @@
-import { SigningArchwayClient } from '@archwayhq/arch3.js';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
-import { useContracts } from '@/composables';
+import { useContracts, useSigningClient } from '@/composables';
 import { Transactions, TransactionMessages, TokenAmount } from '@/domain';
-import { useWalletStore, useTransactionsStore } from '@/store';
+import { useTransactionsStore } from '@/store';
 
 import { AccountConfig, ChainParameter, GovernanceProposalType, TreasurySpendBlock } from '@/types';
 
 export const useGovernanceProposalMutation = async (accountId: AccountConfig.AccountId, walletAddress: ComputedRef<string | undefined>) => {
-  const walletStore = useWalletStore();
   const transactionsStore = useTransactionsStore();
   const { mainContractAddress, preProposeContractAddress } = useContracts(accountId);
 
@@ -33,7 +31,8 @@ export const useGovernanceProposalMutation = async (accountId: AccountConfig.Acc
     }) => {
       if (!walletAddress.value) return;
 
-      const transactions = Transactions.make(walletStore?.signingClient as SigningArchwayClient);
+      const signingClient = useSigningClient();
+      const transactions = Transactions.make(signingClient);
       const msg = TransactionMessages.governanceProposal(mainContractAddress.value, title, description, deposit, type, spend, parameterChanges, upgradePlan);
       return transactions.execute(preProposeContractAddress.value, walletAddress.value, msg);
     },

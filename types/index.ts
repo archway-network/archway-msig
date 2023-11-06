@@ -1,11 +1,16 @@
 import { AppCurrency } from '@keplr-wallet/types';
+import { Account as Bech32Account } from '@cosmjs/stargate';
 
 export * from './proposals';
 export * from './transactions';
 export * from './validators';
 export * from './governance';
+export * from './transport';
+export * from './pagination';
 
 export type TokenDenom = AppCurrency;
+
+export type Account = Bech32Account & Record<string, any>;
 
 export namespace AccountConfig {
   export type AccountId = string;

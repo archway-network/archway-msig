@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/vue-query';
-import { useArch3, useContracts } from '@/composables';
+import { useArchwayClient, useContracts } from '@/composables';
 
 import { AccountConfig } from '@/types';
 
@@ -13,7 +13,7 @@ export const useVestingAccountId = async (
   const { data: vestingAccountId, isLoading: isLoadingVestingAccountId } = useQuery({
     queryKey: [{ scope: 'accounts', entity: `account.${accountId.value}.vesting-account` }],
     queryFn: async () => {
-      const { client } = await useArch3();
+      const client = useArchwayClient();
       return client
         .queryContractSmart(mainContractAddress.value, { get_item: { key: 'vesting_contract_address' } })
         .then(data => data?.item);

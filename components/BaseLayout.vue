@@ -9,17 +9,19 @@
   import Guest from '@/components/Guest.vue';
   import TransactionModal from '@/components/TransactionModal.vue';
   import { useConfig } from '@/composables';
-  import { useAuthStore } from '@/store';
+  import { useAuthStore, useWalletStore } from '@/store';
 
   const attr = useAttrs();
 
   const { isMainNet } = useConfig();
 
   const auth = useAuthStore();
+  const wallet = useWalletStore();
 
   onMounted(() => {
     // Make this non blocking, so the UI displays the LoadingIcon while user authenticates
     auth.init();
+    wallet.initArchwayClient();
   });
 </script>
 
@@ -31,7 +33,11 @@
       <div class="hidden lg:flex flex-col flex-1 relative" v-else>
         <div class="flex-1 flex flex-col z-20">
           <div v-bind="attr" class="hidden lg:flex flex-col flex-1 w-full mr-auto ml-auto max-w-[1920px] bg-gray-warm">
-            <slot :is-auth-loading="auth.loading" :is-authenticated="auth.isAuthenticated" :is-mainnet="isMainNet"></slot>
+            <slot
+              :is-auth-loading="auth.loading || !wallet.archwayClient"
+              :is-authenticated="auth.isAuthenticated"
+              :is-mainnet="isMainNet"
+            />
           </div>
         </div>
       </div>

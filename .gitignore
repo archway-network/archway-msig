@@ -5,9 +5,8 @@ node_modules
 .cache
 .output
 .env
-.env.production
-.env.staging
-.env.titus
+.env.*
+!.env.example
 dist
 .DS_Store
 .firebase/*
