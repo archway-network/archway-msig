@@ -39,11 +39,11 @@ export enum AppEnvironment {
 export const useConfig: () => AppConfig = () => {
   const runtimeConfig = useRuntimeConfig();
 
-  const isMainNet = runtimeConfig.public.RUNTIME_ENVIRONMENT === 'mainnet';
-  const isTestNet = runtimeConfig.public.RUNTIME_ENVIRONMENT === 'testnet';
+  const isMainNet = runtimeConfig.public.runtimeEnvironment === 'mainnet';
+  const isTestNet = runtimeConfig.public.runtimeEnvironment === 'testnet';
   const chainInfo = computed(() => (isMainNet ? triompheChainInfo : isTestNet ? constantineChainInfo : titusChainInfo));
   const tokenDenom = chainInfo.value?.stakeCurrency as TokenDenom;
-  const transport = runtimeConfig.public.DEFAULT_TRANSPORT === 'rpc'
+  const transport = runtimeConfig.public.defaultTransport === 'rpc'
     ? rpcTransport
     : restTransport;
 
