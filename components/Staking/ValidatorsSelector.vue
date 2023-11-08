@@ -22,7 +22,7 @@
 
   const search = ref('');
   const filteredValidators = computed(() =>
-    props.validators.filter(validator => validator.title.toLocaleLowerCase().includes(search.value.toLocaleLowerCase()))
+    props.validators.filter(validator => validator.title.normalize('NFKD').toLocaleLowerCase().includes(search.value.toLocaleLowerCase()))
   );
 </script>
 
