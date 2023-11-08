@@ -5,6 +5,11 @@
 
 set -euo pipefail
 
+command -v archway >/dev/null 2>&1 || {
+  echo >&2 "archway CLI is required but not installed. Aborting."
+  exit 1
+}
+
 command -v jq >/dev/null 2>&1 || {
   echo >&2 "jq is required but not installed. Aborting."
   exit 1
@@ -31,19 +36,31 @@ ____HALP
 esac
 
 
-if [ "${1-}" == '--mainnet' ] || [ "$RUNTIME_ENVIRONMENT" == "mainnet" ]; then
+if [ "${1-}" == '--mainnet' ] || [ "${RUNTIME_ENVIRONMENT:-}" == "mainnet" ]; then
+  chain_id="archway-1"
   main_code_id=7
   voting_code_id=5
   proposal_code_id=4
   prepropose_code_id=6
   cw4_code_id=3
+elif [ "${1-}" == '--titus' ] || [ "${RUNTIME_ENVIRONMENT:-}" == "titus" ]; then
+  curl -fsSL 'https://raw.githubusercontent.com/archway-network/networks/main/devnets/archwaydevnet/chain.json' | archway config chains import || true
+  chain_id="titus-2"
+  main_code_id=2
+  voting_code_id=5
+  proposal_code_id=4
+  prepropose_code_id=3
+  cw4_code_id=1
 else
+  chain_id="constantine-3"
   main_code_id=1
   voting_code_id=2
   proposal_code_id=3
   prepropose_code_id=4
   cw4_code_id=5
 fi
+
+archway config set chain-id ${chain_id}
 
 params="$(jq -r '.' < "$(scriptRelativePath multisig_params.json)")"
 
@@ -68,6 +85,8 @@ instantiate_result="$(
       "${prepropose_code_id}" \
       "${cw4_code_id}" \
   )"
+
+echo "$instantiate_result"
 
 main_address="$(jq -r 'first(.logs[].events[] | select(.type == "wasm") | .attributes[] | select(.key == "dao") | .value)' <<<"${instantiate_result}")"
 pre_propose_address="$(jq -r 'first(.logs[].events[] | select(.type == "wasm") | .attributes[] | select(.key == "update_pre_propose_module") | .value)' <<<"${instantiate_result}")"

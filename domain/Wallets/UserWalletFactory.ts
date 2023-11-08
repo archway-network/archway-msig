@@ -10,7 +10,6 @@ import { OfflineAminoSigner, OfflineDirectSigner } from '@keplr-wallet/types';
 import { WalletType } from '@/types/wallets';
 
 const USER_WALLET_TYPE = 'USER_WALLET_TYPE';
-const USER_WALLET_ADDRESS = 'USER_WALLET_ADDRESS';
 
 class UserWalletFactory {
   private static domListener: (e: any) => Promise<void> | undefined; // this exists to prevent double registration of events listeners
@@ -18,18 +17,19 @@ class UserWalletFactory {
 
   static async makeFromCache(externalDomListener?: (currentWallet: IWallet) => Promise<void> | undefined) {
     const cachedWalletType = Storage.get(USER_WALLET_TYPE, true);
-    const cachedWalletAddress = Storage.get(USER_WALLET_ADDRESS, true);
 
-    if (!cachedWalletAddress) return undefined;
+    if (!cachedWalletType) return undefined;
 
     // it's possible user has deleted wallet or connection, so check again and then setup dom listeners
     await UserWalletFactory.setWallet(cachedWalletType, externalDomListener);
     await UserWalletFactory._wallet!.addDomListeners(UserWalletFactory.domListener);
 
+    const accountAddress = await UserWalletFactory._wallet.accountAddress();
+
     return new UserWallet(
       WalletType[cachedWalletType as keyof typeof WalletType],
       UserWalletFactory._wallet!.offlineSigner,
-      cachedWalletAddress,
+      accountAddress,
       UserWalletFactory._wallet!.accountName
     );
   }
@@ -47,7 +47,6 @@ class UserWalletFactory {
 
   static setStorage(type: WalletType, accountAddress: string) {
     Storage.set(USER_WALLET_TYPE, type, true);
-    Storage.set(USER_WALLET_ADDRESS, accountAddress, true);
   }
 
   static async setWallet(type: WalletType, externalDomListener?: (currentWallet: IWallet) => Promise<void> | undefined) {
@@ -75,7 +74,6 @@ class UserWalletFactory {
     UserWalletFactory._wallet = undefined;
 
     Storage.remove(USER_WALLET_TYPE);
-    Storage.remove(USER_WALLET_ADDRESS);
   }
 
   static async driver(

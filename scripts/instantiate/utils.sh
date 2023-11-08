@@ -50,10 +50,10 @@ function instantiate-multisig-contract() {
     }'
   )"
 
-  encoded_voting_inst_msg="$(base64 <<< "${voting_instantiate_msg}")"
+  encoded_voting_inst_msg="$(base64 <<< "${voting_instantiate_msg}" | tr -d \\n)"
 
   prepropose_info='{"deposit_info":null,"extension":{},"open_proposal_submission":false}'
-  encoded_prepropose_info="$(base64 <<< "${prepropose_info}")"
+  encoded_prepropose_info="$(base64 <<< "${prepropose_info}"| tr -d \\n)"
 
 
   proposal_instantiate_msg="$(
@@ -96,7 +96,7 @@ function instantiate-multisig-contract() {
       }'
     )"
 
-  encoded_proposal_inst_msg="$(base64 <<< "${proposal_instantiate_msg}")"
+  encoded_proposal_inst_msg="$(base64 <<< "${proposal_instantiate_msg}"| tr -d \\n)"
 
   local instantiate_params
   instantiate_params="$(
