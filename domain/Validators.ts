@@ -6,16 +6,18 @@ import ValidatorDelegation from './ValidatorDelegation';
 
 import { ValidatorsFilterType, ValidatorsFilterTypes, ValidatorsWithPagination } from '@/types';
 
+const DEFAULT_PAGE_SIZE = 500;
+
 export default class Validators {
   static async all({
-    queryKey: [{ filter, nextPageToken }],
-  }: QueryFunctionContext<{ filter: ValidatorsFilterType | undefined; nextPageToken?: string }[]>): Promise<ValidatorsWithPagination> {
+    queryKey: [{ filter, nextPageToken, pageSize = DEFAULT_PAGE_SIZE }],
+  }: QueryFunctionContext<{ filter: ValidatorsFilterType | undefined; nextPageToken?: string; pageSize?: number }[]>): Promise<ValidatorsWithPagination> {
     const { tokenDenom, transport } = useConfig();
 
     const data = await transport.getValidators({
       status: Validators.validatorStatus(filter),
       'pagination.key': nextPageToken,
-      'pagination.limit': 100,
+      'pagination.limit': pageSize,
       'pagination.reverse': true,
       'pagination.count_total': true,
     });
@@ -27,13 +29,13 @@ export default class Validators {
   }
 
   static async onlyDelegates({
-    queryKey: [{ walletAddress, nextPageToken }],
-  }: QueryFunctionContext<{ walletAddress?: string; nextPageToken?: string }[]>): Promise<ValidatorsWithPagination> {
+    queryKey: [{ walletAddress, nextPageToken, pageSize = DEFAULT_PAGE_SIZE }],
+  }: QueryFunctionContext<{ walletAddress?: string; nextPageToken?: string; pageSize?: number }[]>): Promise<ValidatorsWithPagination> {
     const { tokenDenom, transport } = useConfig();
 
     const data = await transport.getValidatorsByDelegator(walletAddress!, {
       'pagination.key': nextPageToken,
-      'pagination.limit': 100,
+      'pagination.limit': pageSize,
       'pagination.reverse': true,
       'pagination.count_total': true,
     });
@@ -45,11 +47,11 @@ export default class Validators {
   }
 
   static async delegationsFor({
-    queryKey: [{ walletAddress }],
-  }: QueryFunctionContext<{ walletAddress?: string }[]>): Promise<ValidatorDelegation[]> {
+    queryKey: [{ walletAddress, pageSize = DEFAULT_PAGE_SIZE }],
+  }: QueryFunctionContext<{ walletAddress?: string; pageSize?: number }[]>): Promise<ValidatorDelegation[]> {
     const { tokenDenom, transport } = useConfig();
     const data = await transport.getDelegationsByDelegator(walletAddress!, {
-      'pagination.limit': 100,
+      'pagination.limit': pageSize,
       'pagination.reverse': true,
       'pagination.count_total': false,
     });
