@@ -27,24 +27,7 @@ npm install -g @archwayhq/cli@pre
 
 ## Environment Setup
 
-The Archway CLI is now installed and allows easy configurations to interact with the Archway blockchain. First of all decide which network you want to deploy to; Mainnet (`archway-1`) or Testnet (`constantine-3`).
-
-Check that you have the correct `chain-id` configured:
-
-```bash
-# Check the chain-id currently setup on the config
-archway config show
-```
-
-Change the chain-id config with the following command:
-
-```bash
-# For archway testnet the chain id should be 'constantine-3'
-archway config chain-id constantine-3 --global
-
-# For archway mainnet the chain id should be 'archway-1'
-archway config chain-id archway-1 --global
-```
+The Archway CLI is now installed and allows easy configurations to interact with the Archway blockchain.
 
 Copy the `.env.example` into a new `env` file with the following command:
 
