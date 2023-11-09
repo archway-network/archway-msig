@@ -71,7 +71,7 @@ export interface ITransport {
 
   getProposalTally: (
     proposalId: string,
-  ) => Promise<{ tally: { yes: string; abstain: string; no: string; no_with_veto: string } }>
+  ) => Promise<{ tally: { yes_count: string; abstain_count: string; no_count: string; no_with_veto_count: string } }>
 
   getProposalVotes: (
     proposalId: string,

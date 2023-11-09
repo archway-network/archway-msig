@@ -42,8 +42,7 @@ export default class GovernanceProposal {
 
   static make(attributes: any, tokenDenom: TokenDenom) {
     const {
-      proposal_id,
-      content,
+      id,
       status,
       submit_time,
       deposit_end_time,
@@ -51,12 +50,14 @@ export default class GovernanceProposal {
       voting_end_time,
       total_deposit,
       final_tally_result,
+      title,
+      summary
     } = attributes;
 
     return new GovernanceProposal(
-      proposal_id,
-      content?.title,
-      content?.description,
+      id,
+      title,
+      summary,
       GovernanceProposal.status(status),
       parseISO(submit_time),
       parseISO(deposit_end_time),
