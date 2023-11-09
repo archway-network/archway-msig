@@ -1,6 +1,5 @@
 import { useConfig } from '@/composables';
 import type { ITransport } from '@/types';
-import { Coin } from '@cosmjs/amino';
 
 export const restTransport: ITransport = {
   getInflation: async () => {
@@ -12,7 +11,8 @@ export const restTransport: ITransport = {
   getSupplyByDenom: async (denom) => {
     const { restEndpoint } = useConfig();
     return await $fetch(
-      `${restEndpoint}/cosmos/bank/v1beta1/supply/${denom}`,
+      `${restEndpoint}/cosmos/bank/v1beta1/supply/by_denom`,
+      { query: { denom } },
     )
   },
 
@@ -78,13 +78,11 @@ export const restTransport: ITransport = {
   },
 
   getBalanceByDenom: async (address, denom) => {
-    // NOTE: Search among all the balances since the
-    // `${restEndpoint}/cosmos/bank/v1beta1/balances/${address}/${denom}` route doesn't work as expected
     const { restEndpoint } = useConfig();
-    const { balances } = await $fetch<{ balances: Coin[] }>(
-      `${restEndpoint}/cosmos/bank/v1beta1/balances/${address}`,
+    return await $fetch(
+      `${restEndpoint}/cosmos/bank/v1beta1/balances/${address}/by_denom`,
+      { query: { denom } },
     )
-    return { balance: balances.find(x => x.denom === denom) ?? null }
   },
 
   getProposals: async (query) => {
