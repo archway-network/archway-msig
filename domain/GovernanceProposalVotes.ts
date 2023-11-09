@@ -25,10 +25,10 @@ export default class GovernanceProposalVotes {
   }
 
   static make(attributes: any, tokenDenom: TokenDenom) {
-    const yes = TokenAmount.makeFromAmount(attributes?.yes, tokenDenom);
-    const noWithoutVeto = TokenAmount.makeFromAmount(attributes?.no, tokenDenom);
-    const noWithVeto = TokenAmount.makeFromAmount(attributes?.no_with_veto, tokenDenom);
-    const abstain = TokenAmount.makeFromAmount(attributes?.abstain, tokenDenom);
+    const yes = TokenAmount.makeFromAmount(attributes?.yes_count, tokenDenom);
+    const noWithoutVeto = TokenAmount.makeFromAmount(attributes?.no_count, tokenDenom);
+    const noWithVeto = TokenAmount.makeFromAmount(attributes?.no_with_veto_count, tokenDenom);
+    const abstain = TokenAmount.makeFromAmount(attributes?.abstain_count, tokenDenom);
 
     return new GovernanceProposalVotes(yes, noWithoutVeto, noWithVeto, abstain);
   }

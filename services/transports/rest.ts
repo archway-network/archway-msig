@@ -88,7 +88,7 @@ export const restTransport: ITransport = {
   getProposals: async (query) => {
     const { restEndpoint } = useConfig();
     return await $fetch(
-      `${restEndpoint}/cosmos/gov/v1beta1/proposals`,
+      `${restEndpoint}/cosmos/gov/v1/proposals`,
       { query },
     )
   },
@@ -96,14 +96,14 @@ export const restTransport: ITransport = {
   getProposalById: async (proposalId) => {
     const { restEndpoint } = useConfig();
     return await $fetch(
-      `${restEndpoint}/cosmos/gov/v1beta1/proposals/${proposalId}`,
+      `${restEndpoint}/cosmos/gov/v1/proposals/${proposalId}`,
     )
   },
 
   getProposalDeposits: async (proposalId, query) => {
     const { restEndpoint } = useConfig();
     return await $fetch(
-      `${restEndpoint}/cosmos/gov/v1beta1/proposals/${proposalId}/deposits`,
+      `${restEndpoint}/cosmos/gov/v1/proposals/${proposalId}/deposits`,
       { query },
     )
   },
@@ -111,14 +111,14 @@ export const restTransport: ITransport = {
   getProposalTally: async (proposalId) => {
     const { restEndpoint } = useConfig();
     return await $fetch(
-      `${restEndpoint}/cosmos/gov/v1beta1/proposals/${proposalId}/tally`,
+      `${restEndpoint}/cosmos/gov/v1/proposals/${proposalId}/tally`,
     )
   },
 
   getProposalVotes: async (proposalId, query) => {
     const { restEndpoint } = useConfig();
     return await $fetch(
-      `${restEndpoint}/cosmos/gov/v1beta1/proposals/${proposalId}/votes`,
+      `${restEndpoint}/cosmos/gov/v1/proposals/${proposalId}/votes`,
       { query },
     )
   },
