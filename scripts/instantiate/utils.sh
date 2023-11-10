@@ -138,7 +138,7 @@ function instantiate-multisig-contract() {
     )"
 
   tx_result="$(
-    archway contracts instantiate \
+    ARCHWAY_SKIP_VERSION_CHECK=true archway contracts instantiate \
       --from "${sender_account}" \
       --code "${main_code_id}" \
       --label "${description}" \
