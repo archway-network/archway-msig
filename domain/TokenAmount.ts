@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import { formatNumber } from '@/utils';
+import { formatAmount, formatNumber, parseAmount } from '@/utils';
 
 import { TokenDenom } from '@/types';
 
@@ -23,7 +23,7 @@ export default class TokenAmount {
 
   public static makeFromDenom(amount: any, tokenDenom: TokenDenom): TokenAmount {
     // amount is in coinDenom
-    const converted = BigNumber(amount || 0).shiftedBy(tokenDenom.coinDecimals);
+    const converted = parseAmount(amount, tokenDenom.coinDecimals);
     return new TokenAmount(converted, tokenDenom);
   }
 
@@ -49,6 +49,6 @@ export default class TokenAmount {
   }
 
   public toBigNumber(): BigNumber {
-    return BigNumber(this.amount || 0).shiftedBy(-this.denom.coinDecimals);
+    return formatAmount(this.amount, this.denom.coinDecimals);
   }
 }

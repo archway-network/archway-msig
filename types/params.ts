@@ -1,4 +1,4 @@
-import { toBigInt } from '@/utils';
+import { parseAmount } from '@/utils';
 import { Arguments } from '@/utils/typing';
 import { MsgUpdateParams as GovMsgUpdateParams } from 'cosmjs-types/cosmos/gov/v1/tx';
 import { MsgUpdateParams as StakingMsgUpdateParams } from 'cosmjs-types/cosmos/staking/v1beta1/tx';
@@ -107,11 +107,11 @@ export const MsgUpdateParamsMapper = {
       if (input.params) {
         input.params = {
           ...input.params,
-          inflationRewardsRatio: toBigInt(input.params.inflationRewardsRatio),
-          txFeeRebateRatio: toBigInt(input.params.txFeeRebateRatio),
+          inflationRewardsRatio: parseAmount(input.params.inflationRewardsRatio).toString(),
+          txFeeRebateRatio: parseAmount(input.params.txFeeRebateRatio).toString(),
           minPriceOfGas: {
             ...(input.params.minPriceOfGas ?? {}),
-            amount: toBigInt(input.params.minPriceOfGas.amount),
+            amount: parseAmount(input.params.minPriceOfGas.amount).toString(),
           },
         };
       }
