@@ -1,6 +1,5 @@
 import { isArray, transform, isObject } from 'lodash';
 import { createDefu } from 'defu';
-import BigNumber from 'bignumber.js';
 
 export const truncateAddress = (address: string) => {
   const truncateRegex = /^(archway[a-zA-Z0-9]{5})[a-zA-Z0-9]+([a-zA-Z0-9]{5})$/;
@@ -81,29 +80,3 @@ export const mergeObjects = createDefu((obj, key, value) => {
     return true;
   }
 });
-
-/**
- * Parse denom value into units
- * @param amount BigNumber's input value - string, number or another BN instance
- * @param decimals Number of decimal places to shift by
- * @returns Parsed BigNumber instance
- * @example ```js
- *  parseAmount('100', 3).toString(); // '100000'
- * ```
- */
-export const parseAmount = (amount: BigNumber.Value, decimals = 18) => {
-  return BigNumber(amount).shiftedBy(decimals);
-};
-
-/**
- * Format units as denom value
- * @param amount BigNumber's input value - string, number or another BN instance
- * @param decimals Number of decimal places to shift by
- * @returns Formatted BigNumber instance
- * @example ```js
- *  formatAmount('100', 3).toString(); // '0.1'
- * ```
- */
-export const formatAmount = (amount: BigNumber.Value, decimals = 18) => {
-  return BigNumber(amount).shiftedBy(-decimals);
-};
