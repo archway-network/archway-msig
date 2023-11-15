@@ -3,7 +3,7 @@ import { useContracts, useSigningClient } from '@/composables';
 import { Transactions, TransactionMessages, TokenAmount } from '@/domain';
 import { useTransactionsStore } from '@/store';
 
-import { AccountConfig, ChainParameter, GovernanceProposalType, TreasurySpendBlock } from '@/types';
+import { AccountConfig, ModuleUpdate, GovernanceProposalType, TreasurySpendBlock } from '@/types';
 
 export const useGovernanceProposalMutation = async (accountId: AccountConfig.AccountId, walletAddress: ComputedRef<string | undefined>) => {
   const transactionsStore = useTransactionsStore();
@@ -20,20 +20,32 @@ export const useGovernanceProposalMutation = async (accountId: AccountConfig.Acc
       spend,
       parameterChanges,
       upgradePlan,
+      authority,
     }: {
       title: string;
       description: string;
       deposit: TokenAmount;
       type: GovernanceProposalType;
       spend?: TreasurySpendBlock[];
-      parameterChanges?: ChainParameter[];
+      parameterChanges?: ModuleUpdate[];
       upgradePlan?: Record<string, unknown>;
+      authority?: string;
     }) => {
       if (!walletAddress.value) return;
 
       const signingClient = useSigningClient();
       const transactions = Transactions.make(signingClient);
-      const msg = TransactionMessages.governanceProposal(mainContractAddress.value, title, description, deposit, type, spend, parameterChanges, upgradePlan);
+      const msg = TransactionMessages.governanceProposal(
+        mainContractAddress.value,
+        title,
+        description,
+        deposit,
+        type,
+        spend,
+        parameterChanges,
+        upgradePlan,
+        authority
+      );
       return transactions.execute(preProposeContractAddress.value, walletAddress.value, msg);
     },
 

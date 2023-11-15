@@ -6,7 +6,7 @@ export const rpcTransport: ITransport = {
   getInflation: async () => {
     throw new Error('Not Implemented!');
   },
-  
+
   getSupplyByDenom: async () => {
     throw new Error('Not Implemented!');
   },
@@ -18,11 +18,11 @@ export const rpcTransport: ITransport = {
   getValidatorsByDelegator: async () => {
     throw new Error('Not Implemented!');
   },
-  
+
   getUnbondingDelegationsByDelegator: async () => {
     throw new Error('Not Implemented!');
   },
-  
+
   getRewardsByDelegator: async () => {
     throw new Error('Not Implemented!');
   },
@@ -35,10 +35,18 @@ export const rpcTransport: ITransport = {
     throw new Error('Not Implemented!');
   },
 
-  getAccount: async (address) => {
+  getAccount: async address => {
     const client = useArchwayClient();
-    const account = await client.getAccount(address)
-    return { account }
+    const account = await client.getAccount(address);
+    return { account };
+  },
+
+  getModuleAccount: async () => {
+    throw new Error('Not Implemented!');
+  },
+
+  getModuleParams: async () => {
+    throw new Error('Not Implemented!');
   },
 
   getBalances: async () => {
@@ -48,7 +56,7 @@ export const rpcTransport: ITransport = {
   getBalanceByDenom: async (address, denom) => {
     const client = useArchwayClient();
     const balance = await client.getBalance(address, denom);
-    return { balance }
+    return { balance };
   },
 
   getProposals: async () => {
@@ -70,4 +78,4 @@ export const rpcTransport: ITransport = {
   getProposalVotes: async () => {
     throw new Error('Not Implemented!');
   },
-}
+};

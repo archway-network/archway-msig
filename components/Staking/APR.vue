@@ -31,7 +31,7 @@
 </script>
 
 <template>
-  <div class="h-14 flex items-center border border-gray-warm rounded-full px-6">
+  <div class="h-12 flex items-center border border-gray-warm rounded-full px-6">
     <div v-if="loading">
       <LoadingPulse class="w-16 h-6" />
     </div>

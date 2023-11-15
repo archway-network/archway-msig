@@ -19,7 +19,7 @@
 </script>
 
 <template>
-  <FiltersInput as="div" v-bind="attrs" class="h-14 flex items-center space-x-2 border border-gray-warm rounded-lg px-1 py-1">
+  <FiltersInput as="div" v-bind="attrs" class="h-12 flex items-center space-x-2 border border-gray-warm rounded-lg px-1 py-1">
     <FilterButton
       class="h-full px-6 transition duration-400 ease-in-out"
       :class="{
