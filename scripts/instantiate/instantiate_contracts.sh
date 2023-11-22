@@ -45,7 +45,7 @@ if [ "${1-}" == '--mainnet' ] || [ "${RUNTIME_ENVIRONMENT:-}" == "mainnet" ]; th
   cw4_code_id=3
 elif [ "${1-}" == '--titus' ] || [ "${RUNTIME_ENVIRONMENT:-}" == "titus" ]; then
   curl -fsSL 'https://raw.githubusercontent.com/archway-network/networks/main/devnets/archwaydevnet/chain.json' | archway config chains import || true
-  chain_id="titus-2"
+  chain_id="titus-3"
   main_code_id=2
   voting_code_id=5
   proposal_code_id=4
