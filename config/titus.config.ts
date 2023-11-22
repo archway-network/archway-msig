@@ -17,7 +17,7 @@ const chainInfo: ChainInfo = {
   bip44: {
     coinType: 118,
   },
-  chainId: 'titus-2',
+  chainId: 'titus-3',
   chainName: 'Titus',
   chainSymbolImageUrl: 'https://raw.githubusercontent.com/chainapsis/keplr-chain-registry/main/images/constantine/chain.png',
   currencies: [currency],
