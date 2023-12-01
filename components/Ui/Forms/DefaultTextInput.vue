@@ -7,6 +7,7 @@
 <script setup>
   import { computed } from 'vue';
   import { Input, TextInput, TextInputLabel } from '@/components/Ui/Forms/TextInput';
+  import ErrorMessage from '@/components/Ui/Forms/ErrorMessage.vue';
 
   const props = defineProps({
     label: { type: String, default: undefined },
@@ -24,21 +25,19 @@
 
   const attr = useAttrs();
 
-  const hasLabel = computed(() => props.label !== undefined);
   const hasIcon = computed(() => props.icon !== undefined);
   const hasLegend = computed(() => props.legend !== undefined);
-  const hasErrors = computed(() => props.errors !== undefined);
 </script>
 
 <template>
-  <TextInput>
-    <TextInputLabel class="block pb-2 caption text-gray-800" v-if="label"> {{ label }}{{ required ? '*' : '' }} </TextInputLabel>
-    <div class="relative" :class="{ 'mt-1': hasLabel }">
+  <TextInput class="space-y-3">
+    <TextInputLabel class="label" v-if="label"> {{ label }}{{ required ? '*' : '' }} </TextInputLabel>
+    <div class="relative">
       <div class="relative">
         <Input
           type="text"
           :class="[
-            'w-full h-14 flex items-center pl-4',
+            'w-full h-12 flex items-center pl-4',
             { 'pr-10': hasIcon, 'pr-4': !hasIcon },
             'text-sm text-gray-800 placeholder-shown:text-sm placeholder-shown:text-gray-800',
             'border border-gray-warm rounded-lg',
@@ -56,10 +55,8 @@
         </div>
       </div>
     </div>
-    <p class="text-right pt-3 caption text-red" v-if="hasErrors">
-      {{ errors }}
-    </p>
-    <p class="text-align pt-3 small text-gray" v-if="hasLegend">
+    <ErrorMessage :errors="errors" />
+    <p class="text-align small text-gray" v-if="hasLegend">
       {{ legend }}
     </p>
   </TextInput>

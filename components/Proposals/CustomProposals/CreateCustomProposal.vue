@@ -54,7 +54,7 @@
     <div class="space-y-6">
       <TextInput label="Proposal name" v-model="title" />
       <TextareaInput label="Proposal description" v-model="description" />
-      <TextareaInput label="Proposal Content" v-model="content" rows="8" />
+      <TextareaInput label="Proposal Content" class="font-mono" v-model="content" rows="8" />
     </div>
     <div class="flex flex-row justify-between pt-8">
       <Link @click="emit('close')">Cancel</Link>

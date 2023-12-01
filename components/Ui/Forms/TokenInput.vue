@@ -76,7 +76,7 @@
 </script>
 
 <template>
-  <div>
+  <div class="space-y-3">
     <Label :label="label" :required="required" />
     <div class="bg-gray-warm rounded-lg px-6 py-6 divide-y-[.5px] divide-gray-400">
       <div class="flex justify-between items-center" :class="{ 'pb-2': !hideMaxAmount }">

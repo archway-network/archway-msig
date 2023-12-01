@@ -6,7 +6,7 @@ import { AccountConfig } from '@/types';
 
 export const useAccountVotingConfiguration = async (accountId: AccountConfig.AccountId, walletAddress: ComputedRef<string | undefined>) => {
   const { proposalsContractAddress } = useContracts(accountId);
-  const isWalletConnected = computed(() => !!walletAddress);
+  const isWalletConnected = computed(() => !!walletAddress.value);
 
   const { data: votingConfiguration, isLoading: isLoadingAccountVotingConfig } = useQuery({
     queryKey: [{ scope: 'accounts', entity: `account.${accountId}.votingConfig` }],

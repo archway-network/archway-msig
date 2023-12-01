@@ -20,7 +20,7 @@
     :href="href"
     :external="isExternal"
     :target="isExternal ? '_blank' : ''"
-    :class="['text-orange hover:text-orange/80 hover:no-underline', 'flex items-center space-x-2']"
+    :class="['text-orange hover:text-orange/80 hover:no-underline', 'inline-flex items-center gap-[0.25em]']"
     v-if="isLink"
   >
     <span>

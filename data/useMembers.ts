@@ -6,7 +6,7 @@ import { AccountConfig } from '@/types';
 
 export const useMembers = async (accountId: AccountConfig.AccountId, walletAddress: ComputedRef<string | undefined>) => {
   const { membersContractAddress } = useContracts(accountId);
-  const isWalletConnected = computed(() => !!walletAddress);
+  const isWalletConnected = computed(() => !!walletAddress.value);
 
   const { data: members, isLoading } = useQuery({
     queryKey: [{ scope: 'accounts', entity: `account.${accountId}.members`, address: walletAddress }],

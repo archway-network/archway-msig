@@ -6,5 +6,5 @@
 </script>
 
 <template>
-  <label class="block pb-2 caption text-gray-800" v-if="label"> {{ label }}{{ required ? '*' : '' }} </label>
+  <label class="label" v-if="label"> {{ label }}{{ required ? '*' : '' }} </label>
 </template>

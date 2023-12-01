@@ -27,9 +27,3 @@ export enum GovernanceProposalType {
 }
 
 export type GovernanceProposalVoteOption = 'yes' | 'no' | 'abstain' | 'no_with_veto';
-
-export type ChainParameter = {
-  subspace: string;
-  key: string;
-  value: string;
-};

@@ -14,7 +14,7 @@ export const useProposals = async (
   selectedFilter: Ref<ProposalsFilterType>;
 }> => {
   const selectedFilter = ref(defaultFilter);
-  const isWalletConnected = computed(() => !!walletAddress);
+  const isWalletConnected = computed(() => !!walletAddress.value);
 
   const filters: Filter[] = [
     { id: ProposalsFilterTypes.ALL, label: 'All' },

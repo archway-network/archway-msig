@@ -1,3 +1,4 @@
+const plugin = require('tailwindcss/plugin');
 const defaultTheme = require('tailwindcss/defaultTheme');
 const typographyPlugin = require('./tailwind.plugins/typography');
 
@@ -36,6 +37,9 @@ module.exports = {
       yellow: {
         DEFAULT: '#F4CB63',
       },
+      blue: {
+        DEFAULT: '#62C3F4',
+      },
       red: {
         100: '#F9D7DD',
         DEFAULT: '#D80228',
@@ -44,6 +48,7 @@ module.exports = {
     fontFamily: {
       sans: ['TWK Everett', ...defaultTheme.fontFamily.sans],
       offbit: ['OffBit', ...defaultTheme.fontFamily.sans],
+      mono: defaultTheme.fontFamily.mono,
     },
     extend: {
       borderColor: {
@@ -59,7 +64,7 @@ module.exports = {
       },
       boxShadow: {
         card: '16px 32px 128px -8px rgba(0, 0, 0, 0.07)',
-        'large-card': '0px 15px 54px 0px rgba(0, 0, 0, 0.06)'
+        'large-card': '0px 15px 54px 0px rgba(0, 0, 0, 0.06)',
       },
       dropShadow: {
         button: '0 15px 34px rgba(0, 0, 0, 0.1)',
@@ -77,5 +82,17 @@ module.exports = {
       },
     },
   },
-  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/aspect-ratio'), require('@headlessui/tailwindcss'), typographyPlugin],
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/aspect-ratio'),
+    require('@headlessui/tailwindcss'),
+    typographyPlugin,
+    plugin(({ addComponents }) => {
+      addComponents({
+        '.label': {
+          '@apply block caption text-gray-800': {},
+        },
+      });
+    }),
+  ],
 };

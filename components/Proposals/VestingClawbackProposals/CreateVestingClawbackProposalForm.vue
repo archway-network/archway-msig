@@ -50,7 +50,7 @@
 <template>
   <div class="space-y-6">
     <div>
-      <label class="block pb-2 caption text-gray-800">Clawback Type</label>
+      <label class="label">Clawback Type</label>
       <div class="flex items-center space-x-4">
         <label class="caption">Initialize Clawback</label>
         <div>

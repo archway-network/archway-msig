@@ -8,7 +8,7 @@ export const useVestingAccountId = async (
   walletAddress: ComputedRef<string | undefined>
 ) => {
   const { mainContractAddress } = useContracts(accountId.value);
-  const isWalletConnected = computed(() => !!walletAddress);
+  const isWalletConnected = computed(() => !!walletAddress.value);
 
   const { data: vestingAccountId, isLoading: isLoadingVestingAccountId } = useQuery({
     queryKey: [{ scope: 'accounts', entity: `account.${accountId.value}.vesting-account` }],
