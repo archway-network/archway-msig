@@ -1,23 +1,21 @@
 import BigNumber from 'bignumber.js';
-import { Registry } from '@cosmjs/proto-signing';
 import { toBase64 } from '@cosmjs/encoding';
-import { Any } from 'cosmjs-types/google/protobuf/any.js';
-import { TextProposal } from 'cosmjs-types/cosmos/gov/v1beta1/gov.js';
-import { MsgSubmitProposal } from 'cosmjs-types/cosmos/gov/v1beta1/tx.js';
-import { CommunityPoolSpendProposal } from 'cosmjs-types/cosmos/distribution/v1beta1/distribution.js';
-import { ParameterChangeProposal } from 'cosmjs-types/cosmos/params/v1beta1/params.js';
-import { CancelSoftwareUpgradeProposal, SoftwareUpgradeProposal } from 'cosmjs-types/cosmos/upgrade/v1beta1/upgrade.js';
+import { Any } from 'cosmjs-types/google/protobuf/any';
+import { MsgSubmitProposal } from 'cosmjs-types/cosmos/gov/v1/tx';
+import { MsgSoftwareUpgrade, MsgCancelUpgrade } from 'cosmjs-types/cosmos/upgrade/v1beta1/tx';
+import { MsgCommunityPoolSpend } from 'cosmjs-types/cosmos/distribution/v1beta1/tx';
 
 import TokenAmount from './TokenAmount';
 import Member from './Member';
-import { encodeMessageAsBase64 } from '@/utils';
+import { encodeMessageAsBase64, toArray } from '@/utils';
 
 import {
   BulkDelegationBlock,
-  ChainParameter,
   GovernanceProposalId,
   GovernanceProposalType,
   GovernanceProposalVoteOption,
+  ModuleUpdate,
+  MsgUpdateParamsMapper,
   TreasurySpendBlock,
 } from '@/types';
 
@@ -29,7 +27,7 @@ class TransactionMessages {
           propose: {
             title,
             description,
-            msgs: Array.isArray(msgs) ? msgs : [msgs],
+            msgs: toArray(msgs),
           },
         },
       },
@@ -199,19 +197,26 @@ class TransactionMessages {
     deposit: TokenAmount,
     type: GovernanceProposalType,
     spend?: TreasurySpendBlock[],
-    parameterChanges?: ChainParameter[],
-    upgradePlan?: Record<string, unknown>
+    parameterChanges?: ModuleUpdate[],
+    upgradePlan?: Record<string, unknown>,
+    authority?: string
   ) {
-    const registry = new Registry();
-
-    const wrapMessage = (innerMessage: any) => ({
+    const wrapMessage = (innerMessage: any = []) => ({
       stargate: {
-        type_url: '/cosmos.gov.v1beta1.MsgSubmitProposal',
+        type_url: '/cosmos.gov.v1.MsgSubmitProposal',
         value: toBase64(
           Uint8Array.from(
             MsgSubmitProposal.encode(
               MsgSubmitProposal.fromPartial({
-                content: Any.fromPartial(innerMessage),
+                title,
+                summary: description,
+                metadata: getSHA256Hash(
+                  JSON.stringify({
+                    title,
+                    summary: description,
+                  })
+                ),
+                messages: toArray(innerMessage).map(m => Any.fromPartial(m)),
                 initialDeposit: [
                   {
                     amount: deposit.amount.toString(),
@@ -230,38 +235,15 @@ class TransactionMessages {
 
     switch (type) {
       case GovernanceProposalType.TEXT:
-        msgs = wrapMessage({
-          typeUrl: '/cosmos.gov.v1beta1.TextProposal',
-          value: Uint8Array.from(
-            TextProposal.encode(
-              TextProposal.fromPartial({
-                title,
-                description,
-              })
-            ).finish()
-          ),
-        });
+        msgs = wrapMessage();
         break;
       case GovernanceProposalType.COMMUNITY_POOL_SPEND:
-        console.log({
-          title,
-          description,
-          amount: [
-            {
-              amount: spend?.[0].amount.amount.toString(),
-              denom: spend?.[0].amount.denom.coinMinimalDenom,
-            },
-          ],
-          recipient: spend?.[0].address,
-        });
-        msgs = spend?.map(item =>
-          wrapMessage({
-            typeUrl: '/cosmos.distribution.v1beta1.CommunityPoolSpendProposal',
+        msgs = wrapMessage(
+          spend?.map(item => ({
+            typeUrl: '/cosmos.distribution.v1beta1.MsgCommunityPoolSpend',
             value: Uint8Array.from(
-              CommunityPoolSpendProposal.encode(
-                CommunityPoolSpendProposal.fromPartial({
-                  title,
-                  description,
+              MsgCommunityPoolSpend.encode(
+                MsgCommunityPoolSpend.fromPartial({
                   amount: [
                     {
                       amount: item.amount.amount.toString(),
@@ -269,35 +251,37 @@ class TransactionMessages {
                     },
                   ],
                   recipient: item.address,
+                  authority,
                 })
               ).finish()
             ),
-          })
+          }))
         );
         break;
       case GovernanceProposalType.PARAMETER_CHANGE:
-        msgs = wrapMessage({
-          typeUrl: '/cosmos.params.v1beta1.ParameterChangeProposal',
-          value: Uint8Array.from(
-            ParameterChangeProposal.encode(
-              ParameterChangeProposal.fromPartial({
-                title,
-                description,
-                changes: parameterChanges,
-              })
-            ).finish()
-          ),
-        });
+        msgs = wrapMessage(
+          parameterChanges?.map(update => {
+            const { MsgUpdateParams, fromPartial, typeUrl } = MsgUpdateParamsMapper[update.moduleName];
+            return {
+              typeUrl,
+              value: MsgUpdateParams.encode(
+                fromPartial({
+                  authority,
+                  params: update.params,
+                })
+              ).finish(),
+            };
+          })
+        );
         break;
       case GovernanceProposalType.SOFTWARE_UPGRADE:
         msgs = wrapMessage({
-          typeUrl: '/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal',
+          typeUrl: '/cosmos.upgrade.v1beta1.MsgSoftwareUpgrade',
           value: Uint8Array.from(
-            SoftwareUpgradeProposal.encode(
-              SoftwareUpgradeProposal.fromPartial({
-                title,
-                description,
+            MsgSoftwareUpgrade.encode(
+              MsgSoftwareUpgrade.fromPartial({
                 plan: upgradePlan,
+                authority,
               })
             ).finish()
           ),
@@ -305,12 +289,11 @@ class TransactionMessages {
         break;
       case GovernanceProposalType.CANCEL_SOFTWARE_UPGRADE:
         msgs = wrapMessage({
-          typeUrl: '/cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal',
+          typeUrl: '/cosmos.upgrade.v1beta1.MsgCancelUpgrade',
           value: Uint8Array.from(
-            CancelSoftwareUpgradeProposal.encode(
-              CancelSoftwareUpgradeProposal.fromPartial({
-                title,
-                description,
+            MsgCancelUpgrade.encode(
+              MsgCancelUpgrade.fromPartial({
+                authority,
               })
             ).finish()
           ),

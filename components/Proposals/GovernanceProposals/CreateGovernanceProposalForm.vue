@@ -1,11 +1,10 @@
 <script lang="tsx" setup>
   import { PropType, ref } from 'vue';
   import { storeToRefs } from 'pinia';
-  import _ from 'lodash';
 
   import { Link, PrimaryButton, TextInput, TextareaInput, TokenInput } from '@/components/Ui';
   import TreasurySpendBlocks from '../TreasurySpendProposals/TreasurySpendBlocks.vue';
-  import ParameterChanges from './ParameterChanges.vue';
+  import ModuleUpdatesForm from './ModuleUpdatesForm.vue';
   import SubmitProposalTransactionSuccessful from '@/components/Proposals/SubmitProposalTransactionSuccessful.vue';
   import { useAccountId } from '@/data/useAccountId';
   import { useGovernanceProposalMutation } from '@/data/useGovernanceProposalMutation';
@@ -13,7 +12,8 @@
   import { TokenAmount } from '@/domain';
   import { useConfig } from '@/composables';
 
-  import { ChainParameter, GovernanceProposalType, TreasurySpendBlock } from '@/types';
+  import { ModuleUpdate, GovernanceProposalType, TreasurySpendBlock } from '@/types';
+  import { useModuleAddress } from '@/data/useModuleAddress';
 
   const props = defineProps({
     type: { type: String as PropType<GovernanceProposalType>, required: true },
@@ -31,30 +31,25 @@
   const depositAmount = ref<TokenAmount>(TokenAmount.zero(tokenDenom));
   const isDepositAmountValid = ref(true);
   const spendBlocks = ref<TreasurySpendBlock[]>([]);
-  const parameterChanges = ref<ChainParameter[]>([]);
+  const parameterChanges = ref<Partial<ModuleUpdate>[]>([]);
   const upgradePlan = ref('');
+  const { address: authority } = useModuleAddress('gov');
 
   const { mutate, loading } = await useGovernanceProposalMutation(accountId.value, walletAddress);
 
   const filteredSpendBlocks = computed(() => spendBlocks.value.filter(block => !!block.amount && !!block.address));
-  const filteredParameterChanges = computed(() =>
-    parameterChanges.value
-      .map(chainParameter => _.mapValues(chainParameter, _.trim))
-      .filter(chainParameter => !!chainParameter.subspace && !!chainParameter.key && !!chainParameter.value)
+  const filteredParameterChanges = computed(
+    () => parameterChanges.value.filter(update => !!update.params && !!update.moduleName) as ModuleUpdate[]
   );
 
   const calculateDescription = () => {
     switch (props.type) {
       case GovernanceProposalType.COMMUNITY_POOL_SPEND:
         const toSpend = filteredSpendBlocks.value.map(block => `${block.amount.formatWithCoin()} @ ${block.address}`).join('\n');
-
         return [description.value, toSpend ? 'Spend: ' + '\n' + toSpend : ''].filter(Boolean).join('\n\n');
       case GovernanceProposalType.PARAMETER_CHANGE:
-        const changes = filteredParameterChanges.value
-          .map(chainParameter => `${chainParameter.subspace} -> ${chainParameter.key} = ${chainParameter.value}`)
-          .join('\n');
-
-        return [description.value, changes ? 'Parameter Change: ' + '\n' + changes : ''].filter(Boolean).join('\n\n');
+        const updatedModules = filteredParameterChanges.value.map(update => `${update.moduleName}`).join(', ');
+        return [description.value, updatedModules ? `Updated Modules: ${updatedModules}` : ''].join('\n\n');
       case GovernanceProposalType.SOFTWARE_UPGRADE:
         return [description.value, 'Software Upgrade Plan:', JSON.stringify(JSON.parse(upgradePlan.value), undefined, 2)]
           .filter(Boolean)
@@ -105,6 +100,7 @@
         spend: props.type === GovernanceProposalType.COMMUNITY_POOL_SPEND ? filteredSpendBlocks.value : undefined,
         parameterChanges: props.type === GovernanceProposalType.PARAMETER_CHANGE ? filteredParameterChanges.value : undefined,
         upgradePlan: props.type === GovernanceProposalType.SOFTWARE_UPGRADE ? JSON.parse(upgradePlan.value) : undefined,
+        authority: authority.value,
       },
       {
         onSuccess: () => {
@@ -126,7 +122,7 @@
       <TextareaInput label="Proposal description" v-model="description" />
       <TokenInput label="Initial deposit amount" v-model="depositAmount" v-model:is-valid="isDepositAmountValid" :hide-max-amount="true" />
       <TreasurySpendBlocks label="Proposed spends" v-model="spendBlocks" v-if="type === GovernanceProposalType.COMMUNITY_POOL_SPEND" />
-      <ParameterChanges label="Parameter changes" v-model="parameterChanges" v-if="type === GovernanceProposalType.PARAMETER_CHANGE" />
+      <ModuleUpdatesForm label="Parameter changes" v-model="parameterChanges" v-if="type === GovernanceProposalType.PARAMETER_CHANGE" />
       <TextareaInput label="Upgrade plan" v-model="upgradePlan" rows="8" v-if="type === GovernanceProposalType.SOFTWARE_UPGRADE" />
     </div>
     <div class="flex flex-row justify-between pt-8">

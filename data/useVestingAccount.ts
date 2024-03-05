@@ -10,7 +10,7 @@ export const useVestingAccount = async (
   vestingAccountId: string,
   walletAddress: ComputedRef<string | undefined>
 ) => {
-  const isWalletConnected = computed(() => !!walletAddress);
+  const isWalletConnected = computed(() => !!walletAddress.value);
   const { tokenDenom } = useConfig();
 
   const { data: account, isLoading } = useQuery({

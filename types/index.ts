@@ -7,10 +7,18 @@ export * from './validators';
 export * from './governance';
 export * from './transport';
 export * from './pagination';
+export * from './params';
 
 export type TokenDenom = AppCurrency;
 
 export type Account = Bech32Account & Record<string, any>;
+
+export type ModuleAccount<T extends string = string> = {
+  '@type': '/cosmos.auth.v1beta1.ModuleAccount';
+  base_account: Bech32Account;
+  name: T;
+  permissions: string[];
+};
 
 export namespace AccountConfig {
   export type AccountId = string;
