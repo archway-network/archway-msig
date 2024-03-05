@@ -35,6 +35,7 @@ ____HALP
         exit 0;;
 esac
 
+archway version
 
 if [ "${1-}" == '--mainnet' ] || [ "${RUNTIME_ENVIRONMENT:-}" == "mainnet" ]; then
   chain_id="archway-1"
@@ -44,8 +45,8 @@ if [ "${1-}" == '--mainnet' ] || [ "${RUNTIME_ENVIRONMENT:-}" == "mainnet" ]; th
   prepropose_code_id=6
   cw4_code_id=3
 elif [ "${1-}" == '--titus' ] || [ "${RUNTIME_ENVIRONMENT:-}" == "titus" ]; then
-  curl -fsSL 'https://raw.githubusercontent.com/archway-network/networks/main/devnets/archwaydevnet/chain.json' | archway config chains import || true
-  chain_id="titus-3"
+curl -fsSL 'https://raw.githubusercontent.com/archway-network/networks/main/devnets/archwaydevnet/chain.json' | ARCHWAY_SKIP_VERSION_CHECK=true archway config chains import || true
+  chain_id="titus-4"
   main_code_id=2
   voting_code_id=5
   proposal_code_id=4
@@ -60,7 +61,7 @@ else
   cw4_code_id=5
 fi
 
-archway config set chain-id ${chain_id}
+ARCHWAY_SKIP_VERSION_CHECK=true archway config set chain-id ${chain_id}
 
 params="$(jq -r '.' < "$(scriptRelativePath multisig_params.json)")"
 
