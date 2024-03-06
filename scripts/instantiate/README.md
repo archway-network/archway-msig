@@ -36,15 +36,15 @@
   bash instantiate_contracts.json --mainnet
   ```
 
-  To instantiate them on Titus devnet, add the `--titus` flag, like this:
+  To instantiate them on Titus devnet, add the `--devnet` flag, like this:
   ```
-  bash instantiate_contracts.json --titus
+  bash instantiate_contracts.json --devnet
   ```
 
 Alternatively you can set the RUNTIME_ENVIRONMENT variable in a `.env` file at the root of this project, with any of the 3 options:
   ```
   # .env
-  RUNTIME_ENVIRONMENT=mainnet|testnet|titus
+  RUNTIME_ENVIRONMENT=mainnet|testnet|devnet
   ```
 
 
