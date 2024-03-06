@@ -1,8 +1,6 @@
 import { computed, ComputedRef } from 'vue';
 
-import triompheChainInfo from '@/config/triomphe.config';
-import constantineChainInfo from '@/config/constantine.config';
-import titusChainInfo from '@/config/titus.config';
+import { TriompheChainInfo, ConstantineChainInfo, TitusChainInfo } from '@archway-kit/wallet';
 
 import { TokenDenom, ITransport } from '@/types';
 import { restTransport, rpcTransport } from '@/services/transports';
@@ -31,17 +29,17 @@ type AppConfig = {
 };
 
 export enum AppEnvironment {
-  MAINNET = 'MAINNET',
-  TESTNET = 'TESTNET',
-  TITUS = 'TITUS',
+  MAINNET = 'mainnet',
+  TESTNET = 'testnet',
+  TITUS = 'devnet',
 }
 
 export const useConfig: () => AppConfig = () => {
   const runtimeConfig = useRuntimeConfig();
 
-  const isMainNet = runtimeConfig.public.runtimeEnvironment === 'mainnet';
-  const isTestNet = runtimeConfig.public.runtimeEnvironment === 'testnet';
-  const chainInfo = computed(() => (isMainNet ? triompheChainInfo : isTestNet ? constantineChainInfo : titusChainInfo));
+  const isMainNet = runtimeConfig.public.runtimeEnvironment === AppEnvironment.MAINNET;
+  const isTestNet = runtimeConfig.public.runtimeEnvironment === AppEnvironment.TESTNET;
+  const chainInfo = computed(() => (isMainNet ? TriompheChainInfo : isTestNet ? ConstantineChainInfo : TitusChainInfo));
   const tokenDenom = chainInfo.value?.stakeCurrency as TokenDenom;
   const transport = runtimeConfig.public.defaultTransport === 'rpc'
     ? rpcTransport
