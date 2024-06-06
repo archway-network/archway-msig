@@ -1,4 +1,4 @@
-import { isArray, transform, isObject } from 'lodash';
+import _ from 'lodash';
 import { createDefu } from 'defu';
 
 export const truncateAddress = (address: string) => {
@@ -56,15 +56,15 @@ export const toArray = (value: any) => (Array.isArray(value) ? value : [value]);
 export const isUint8Array = (value: unknown) => value instanceof Object.getPrototypeOf(Uint8Array);
 
 export const transformKeys = (input: Record<string, unknown>, transformer: (v: string) => string) => {
-  return transform(input, (result: Record<string, unknown>, value: unknown, key: string, target) => {
-    const transformedKey = isArray(target) ? key : transformer(key);
-    result[transformedKey] = isObject(value) ? transformKeys(value as Record<string, unknown>, transformer) : value;
+  return _.transform(input, (result: Record<string, unknown>, value: unknown, key: string, target) => {
+    const transformedKey = _.isArray(target) ? key : transformer(key);
+    result[transformedKey] = _.isObject(value) ? transformKeys(value as Record<string, unknown>, transformer) : value;
   });
 };
 
 export const transformValues = (input: unknown, transformer: (v: unknown, key?: string) => any, key?: string) => {
-  if (isObject(input)) {
-    return transform(input, (result: Record<string, unknown>, value: unknown, key: string) => {
+  if (_.isObject(input)) {
+    return _.transform(input, (result: Record<string, unknown>, value: unknown, key: string) => {
       result[key] = transformValues(value, transformer, key);
     });
   }
@@ -73,7 +73,7 @@ export const transformValues = (input: unknown, transformer: (v: unknown, key?: 
 
 export const mergeObjects = createDefu((obj, key, value) => {
   // don't merge arrays with defaults if value is specified
-  if (isArray(obj[key])) {
+  if (_.isArray(obj[key])) {
     if (JSON.stringify(obj[key]) !== JSON.stringify(value)) {
       obj[key] = value;
     }
