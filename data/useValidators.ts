@@ -1,11 +1,11 @@
-import { Ref, ComputedRef } from 'vue';
+import { type Ref, type ComputedRef } from 'vue';
 import { useQuery } from '@tanstack/vue-query';
 
 import { Validators, Validator, ValidatorDelegation } from '@/domain';
 import { useValidatorsFilters } from '@/data/useValidatorsFilters';
 import { useValidatorsDelegations } from '@/data/useValidatorsDelegations';
 
-import { Filter, ValidatorsFilterTypes, ValidatorsFilterType } from '@/types';
+import { type Filter, ValidatorsFilterTypes, type ValidatorsFilterType } from '@/types';
 
 export const useValidators = async (
   isAuthenticated: ComputedRef<boolean>,

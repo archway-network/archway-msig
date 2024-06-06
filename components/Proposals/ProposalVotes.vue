@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import { PropType } from 'vue';
+  import { type PropType } from 'vue';
   import { storeToRefs } from 'pinia';
   import { CopyAddress } from '@/components/Ui';
   import ProposalVotesSkeleton from '@/components/Proposals/ProposalVotesSkeleton.vue';

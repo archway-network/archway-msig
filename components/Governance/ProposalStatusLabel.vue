@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import { PropType } from 'vue';
+  import { type PropType } from 'vue';
   import DepositPeriodLabel from '@/components/Governance/Labels/DepositPeriodLabel.vue';
   import InProgressLabel from '@/components/Governance/Labels/InProgressLabel.vue';
   import FailedLabel from '@/components/Governance/Labels/FailedLabel.vue';

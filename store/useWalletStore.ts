@@ -2,7 +2,7 @@ import { ref } from 'vue';
 import { defineStore } from 'pinia';
 import { ArchwayClient, SigningArchwayClient } from '@archwayhq/arch3.js';
 import { v4 as uuidv4 } from 'uuid';
-import { isOfflineDirectSigner, OfflineSigner } from '@cosmjs/proto-signing';
+import { isOfflineDirectSigner, type OfflineSigner } from '@cosmjs/proto-signing';
 
 import { useConfig, useLoading } from '@/composables';
 import IWallet from '@/domain/Wallets/IWallet';

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import { PropType } from 'vue';
+  import { type PropType } from 'vue';
   import { DefaultModal } from '@/components/Ui';
   import ProposalDetails from '@/components/Governance/ProposalDetails.vue';
   import { GovernanceProposal } from '@/domain';

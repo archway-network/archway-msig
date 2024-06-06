@@ -5,7 +5,7 @@ import CosmostationWallet from './CosmostationWallet';
 import LeapWallet from './LeapWallet';
 import WalletExtensionNotInstalled from './Exceptions/WalletExtensionNotInstalled';
 import IWallet from './IWallet';
-import { OfflineAminoSigner, OfflineDirectSigner } from '@keplr-wallet/types';
+import type { OfflineAminoSigner, OfflineDirectSigner } from '@keplr-wallet/types';
 
 import { WalletType } from '@/types/wallets';
 

@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-  import { PropType } from 'vue';
-  import { v4 as uuidv4 } from 'uuid';
+  import { type PropType } from 'vue';
   import { PlusIcon } from '@heroicons/vue/24/solid';
   import { PrimaryButton } from '@/components/Ui';
   import MemberBlock from '@/components/Members/MemberBlock.vue';

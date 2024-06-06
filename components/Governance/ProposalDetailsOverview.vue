@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import { PropType } from 'vue';
+  import { type PropType } from 'vue';
   import { storeToRefs } from 'pinia';
 
   import { AlertCard, LoadingPulse, Tokens } from '@/components/Ui';

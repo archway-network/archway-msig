@@ -1,8 +1,8 @@
-import { Ref } from 'vue';
+import { type Ref } from 'vue';
 import { useQuery } from '@tanstack/vue-query';
 import { GovernanceProposals, GovernanceProposal } from '@/domain';
 
-import { Filter, GovernanceProposalsFilterTypes, GovernanceProposalsFilterType } from '@/types';
+import { type Filter, GovernanceProposalsFilterTypes, type GovernanceProposalsFilterType } from '@/types';
 
 export const useGovernanceProposals = async (
   defaultFilter: GovernanceProposalsFilterType

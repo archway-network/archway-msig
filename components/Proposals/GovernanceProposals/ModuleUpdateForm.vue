@@ -3,7 +3,7 @@
   import ModuleParametersChange from '@/components/Proposals/GovernanceProposals/ModuleParametersChange.vue';
   import { XCircleIcon } from '@heroicons/vue/24/outline';
   import { Select, SelectOption } from '@/components/Ui';
-  import { ModuleUpdate, UpdatableModule, updatableModules } from '@/types';
+  import { type ModuleUpdate, UpdatableModule, updatableModules } from '@/types';
 
   type Props = {
     modelValue: Partial<ModuleUpdate>;

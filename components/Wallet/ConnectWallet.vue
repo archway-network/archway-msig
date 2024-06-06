@@ -6,7 +6,7 @@
   import WalletConnectionFailure from '@/components/Wallet/WalletConnectionFailure.vue';
   import { Wallets } from '@/domain';
 
-  import { Wallet, WalletType } from '@/types/wallets';
+  import { type Wallet, WalletType } from '@/types/wallets';
 
   const selectedWallet = ref<Wallet | undefined>();
   const hasErrors = ref<boolean>(false);

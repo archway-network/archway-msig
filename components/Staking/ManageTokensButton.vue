@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import { PropType } from 'vue';
+  import { type PropType } from 'vue';
   import { Link, SecondaryButton } from '@/components/Ui';
   import ManageTokensModal from './ManageTokensModal.vue';
   import { useModals } from '@/composables';

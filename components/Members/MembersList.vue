@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import { PropType } from 'vue';
+  import { type PropType } from 'vue';
   import { CopyAddress, TooltipWithIcon } from '@/components/Ui';
   import RemoveMemberButton from '@/components/Members/RemoveMemberButton.vue';
   import { Member } from '@/domain';

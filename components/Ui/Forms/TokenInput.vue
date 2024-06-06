@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import { PropType, ref } from 'vue';
+  import { ref, type PropType } from 'vue';
   import BigNumber from 'bignumber.js';
 
   import Label from './Label.vue';
@@ -9,7 +9,7 @@
   import TextInput from '@/components/Ui/Forms/DefaultTextInput.vue';
   import { TokenAmount } from '@/domain';
 
-  import { TokenDenom } from '@/types';
+  import { type TokenDenom } from '@/types';
 
   const props = defineProps({
     label: { type: String, default: undefined },

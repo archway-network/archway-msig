@@ -1,5 +1,5 @@
 <script lang="tsx" setup>
-  import { PropType, ref } from 'vue';
+  import { ref, type PropType } from 'vue';
   import { storeToRefs } from 'pinia';
 
   import { Link, PrimaryButton, TextInput, TextareaInput, TokenInput } from '@/components/Ui';
@@ -12,7 +12,7 @@
   import { TokenAmount } from '@/domain';
   import { useConfig } from '@/composables';
 
-  import { ModuleUpdate, GovernanceProposalType, TreasurySpendBlock } from '@/types';
+  import { type ModuleUpdate, GovernanceProposalType, type TreasurySpendBlock } from '@/types';
   import { useModuleAddress } from '@/data/useModuleAddress';
 
   const props = defineProps({

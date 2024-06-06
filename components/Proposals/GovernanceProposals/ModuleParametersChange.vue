@@ -3,7 +3,7 @@
   import { omit } from 'lodash';
   import { TooltipPosition } from '@/types';
   import ErrorMessage from '@/components/Ui/Forms/ErrorMessage.vue';
-  import { ModuleUpdate, MsgUpdateParamsMapper, UpdatableModule } from '@/types/params';
+  import { type ModuleUpdate, MsgUpdateParamsMapper, UpdatableModule } from '@/types/params';
   import { TextareaInput, TooltipWithIcon } from '@/components/Ui';
   import { Link } from '@/components/Ui';
   import isPlainObject from 'lodash/isPlainObject';

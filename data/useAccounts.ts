@@ -1,4 +1,4 @@
-import { AccountConfig } from '@/types';
+import { type AccountConfig } from '@/types';
 
 export const useAccounts = (): { accounts: AccountConfig.AccountId[] } => {
   const runtimeConfig = useRuntimeConfig();

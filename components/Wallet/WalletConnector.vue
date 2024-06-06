@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-  import { onMounted, PropType } from 'vue';
+  import { onMounted, type PropType } from 'vue';
   import { Link, LoadingIcon } from '@/components/Ui';
   import { PopoverButton } from '@headlessui/vue';
   import { useWalletStore } from '@/store';
 
-  import { Wallet } from '@/types/wallets';
+  import { type Wallet } from '@/types/wallets';
 
   const props = defineProps({
     wallet: { type: Object as PropType<Wallet>, required: true },

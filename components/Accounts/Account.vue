@@ -1,4 +1,5 @@
 <script lang="tsx" setup>
+  import { computed, type PropType } from 'vue';
   import { storeToRefs } from 'pinia';
   import { CopyAddress } from '@/components/Ui';
   import AccountSkeleton from '@/components/Accounts/AccountSkeleton.vue';
@@ -7,7 +8,7 @@
   import { useAccount } from '@/data/useAccount';
   import { useAuthStore } from '@/store';
 
-  import { AccountConfig } from '@/types';
+  import type { AccountConfig } from '@/types';
 
   const props = defineProps({
     accountId: { type: String as PropType<AccountConfig.AccountId>, required: true },

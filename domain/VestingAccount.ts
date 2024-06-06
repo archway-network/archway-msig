@@ -1,7 +1,7 @@
 import { formatDistanceToNow, format, differenceInSeconds, isPast, isFuture } from 'date-fns';
 import TokenAmount from './TokenAmount';
 
-import { TokenDenom } from '@/types';
+import { type TokenDenom } from '@/types';
 import BigNumber from 'bignumber.js';
 
 type VestingAccountFormattedAttributes = {

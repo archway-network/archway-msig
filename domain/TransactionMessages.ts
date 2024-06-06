@@ -10,13 +10,13 @@ import Member from './Member';
 import { encodeMessageAsBase64, toArray } from '@/utils';
 
 import {
-  BulkDelegationBlock,
-  GovernanceProposalId,
-  GovernanceProposalType,
-  GovernanceProposalVoteOption,
-  ModuleUpdate,
+  type BulkDelegationBlock,
+  type GovernanceProposalId,
+  type GovernanceProposalType,
+  type GovernanceProposalVoteOption,
+  type ModuleUpdate,
   MsgUpdateParamsMapper,
-  TreasurySpendBlock,
+  type TreasurySpendBlock,
 } from '@/types';
 
 class TransactionMessages {

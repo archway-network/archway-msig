@@ -1,8 +1,8 @@
-import { computed, ComputedRef } from 'vue';
+import { computed, type ComputedRef } from 'vue';
 
 import { TriompheChainInfo, ConstantineChainInfo, TitusChainInfo } from '@archway-kit/wallet';
 
-import { TokenDenom, ITransport } from '@/types';
+import type { TokenDenom, ITransport } from '@/types';
 import { restTransport, rpcTransport } from '@/services/transports';
 
 type AppConfigExternalLinks = {
@@ -41,9 +41,7 @@ export const useConfig: () => AppConfig = () => {
   const isTestNet = runtimeConfig.public.runtimeEnvironment === AppEnvironment.TESTNET;
   const chainInfo = computed(() => (isMainNet ? TriompheChainInfo : isTestNet ? ConstantineChainInfo : TitusChainInfo));
   const tokenDenom = chainInfo.value?.stakeCurrency as TokenDenom;
-  const transport = runtimeConfig.public.defaultTransport === 'rpc'
-    ? rpcTransport
-    : restTransport;
+  const transport = runtimeConfig.public.defaultTransport === 'rpc' ? rpcTransport : restTransport;
 
   const restEndpoint = computed(() => chainInfo.value?.rest);
   const rpcEndpoint = computed(() => chainInfo.value?.rpc);

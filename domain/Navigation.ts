@@ -1,5 +1,5 @@
 import { GovernanceIcon, PageIcon, StakingIcon, UsersIcon } from '@/components/Ui';
-import { AccountConfig, MenuItem } from '@/types';
+import type { AccountConfig, MenuItem } from '@/types';
 
 export enum NavigationLabels {
   Accounts = 'Accounts',

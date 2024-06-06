@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-  import { computed, PropType } from 'vue';
-  import { RouteLocationRaw } from 'vue-router';
+  import { computed, type PropType } from 'vue';
+  import { type RouteLocationRaw } from 'vue-router';
   import ExternalLinkIcon from '@/components/Ui/Icons/ExternalLinkIcon.vue';
   import LoadingIcon from '@/components/Ui/Icons/LoadingIcon.vue';
 

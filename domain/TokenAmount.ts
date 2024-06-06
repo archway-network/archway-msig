@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js';
 
 import { formatAmount, formatNumber, parseAmount } from '@/utils';
 
-import { TokenDenom } from '@/types';
+import { type TokenDenom } from '@/types';
 
 BigNumber.config({ EXPONENTIAL_AT: 1e9 });
 

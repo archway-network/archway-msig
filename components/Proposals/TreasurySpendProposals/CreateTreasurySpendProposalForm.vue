@@ -8,7 +8,7 @@
   import { useTreasurySpendMutation } from '@/data/useTreasurySpendMutation';
   import { useAuthStore, useTransactionsStore } from '@/store';
 
-  import { TreasurySpendBlock } from '@/types';
+  import { type TreasurySpendBlock } from '@/types';
 
   const emit = defineEmits(['close']);
 

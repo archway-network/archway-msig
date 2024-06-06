@@ -2,7 +2,7 @@
   import { Label, ListForm } from '@/components/Ui';
   import ModuleUpdateForm from '@/components/Proposals/GovernanceProposals/ModuleUpdateForm.vue';
 
-  import { ModuleUpdate, updatableModules } from '@/types';
+  import { type ModuleUpdate, updatableModules } from '@/types';
 
   type Props = {
     modelValue: Partial<ModuleUpdate>[];

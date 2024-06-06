@@ -1,4 +1,5 @@
 <script lang="tsx" setup>
+  import { type PropType } from 'vue';
   import { storeToRefs } from 'pinia';
   import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue';
   import { ChevronDownIcon, PrimaryButton } from '@/components/Ui';
@@ -8,7 +9,7 @@
   import { useProposalVoteMutation } from '@/data/useProposalVoteMutation';
   import { useAuthStore, useTransactionsStore } from '@/store';
 
-  import { ProposalVoteOption } from '@/types';
+  import { type ProposalVoteOption } from '@/types';
 
   const props = defineProps({
     proposal: { type: Object as PropType<Proposal>, required: true },

@@ -3,7 +3,7 @@ import { useContracts, useSigningClient } from '@/composables';
 import { Transactions, TransactionMessages } from '@/domain';
 import { useTransactionsStore } from '@/store';
 
-import { AccountConfig } from '@/types';
+import { type AccountConfig } from '@/types';
 
 export const useCreateCustomProposalMutation = async (
   accountId: AccountConfig.AccountId,

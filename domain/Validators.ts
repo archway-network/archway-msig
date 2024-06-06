@@ -1,17 +1,19 @@
-import { QueryFunctionContext } from '@tanstack/vue-query';
+import { type QueryFunctionContext } from '@tanstack/vue-query';
 
 import { useConfig } from '@/composables';
 import Validator from './Validator';
 import ValidatorDelegation from './ValidatorDelegation';
 
-import { ValidatorsFilterType, ValidatorsFilterTypes, ValidatorsWithPagination } from '@/types';
+import { type ValidatorsFilterType, ValidatorsFilterTypes, type ValidatorsWithPagination } from '@/types';
 
 const DEFAULT_PAGE_SIZE = 500;
 
 export default class Validators {
   static async all({
     queryKey: [{ filter, nextPageToken, pageSize = DEFAULT_PAGE_SIZE }],
-  }: QueryFunctionContext<{ filter: ValidatorsFilterType | undefined; nextPageToken?: string; pageSize?: number }[]>): Promise<ValidatorsWithPagination> {
+  }: QueryFunctionContext<
+    { filter: ValidatorsFilterType | undefined; nextPageToken?: string; pageSize?: number }[]
+  >): Promise<ValidatorsWithPagination> {
     const { tokenDenom, transport } = useConfig();
 
     const data = await transport.getValidators({
@@ -24,7 +26,7 @@ export default class Validators {
 
     return {
       nextPageToken: data?.pagination?.next_key,
-      validators: data?.validators.map((attributes) => Validator.make(attributes, tokenDenom)),
+      validators: data?.validators.map(attributes => Validator.make(attributes, tokenDenom)),
     };
   }
 

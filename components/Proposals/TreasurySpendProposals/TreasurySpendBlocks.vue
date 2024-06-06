@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-  import { PropType } from 'vue';
+  import { type PropType } from 'vue';
   import { PlusIcon } from '@heroicons/vue/24/solid';
 
   import { PrimaryButton, Label } from '@/components/Ui';
   import TreasurySpendBlock from '@/components/Proposals/TreasurySpendProposals/TreasurySpendBlock.vue';
 
-  import { TreasurySpendBlock as TreasurySpendBlockType } from '@/types';
+  import { type TreasurySpendBlock as TreasurySpendBlockType } from '@/types';
 
   const props = defineProps({
     label: { type: String, default: undefined },

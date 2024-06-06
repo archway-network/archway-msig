@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import { PropType } from 'vue';
+  import { type PropType } from 'vue';
   import ProposalVotingProgress from '@/components/Proposals/ProposalVotingProgress.vue';
   import { Proposal } from '@/domain';
 

@@ -1,4 +1,4 @@
-import { ComputedRef, Ref } from 'vue';
+import { type ComputedRef, type Ref } from 'vue';
 import { useQuery } from '@tanstack/vue-query';
 import BigNumber from 'bignumber.js';
 

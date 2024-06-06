@@ -1,4 +1,4 @@
-import { defineComponent, inject, provide, ref, InjectionKey, PropType, Ref } from 'vue';
+import { defineComponent, inject, provide, ref, type InjectionKey, type PropType, type Ref } from 'vue';
 import { omit, render } from '@/utils';
 
 import type { Filter } from '@/types';

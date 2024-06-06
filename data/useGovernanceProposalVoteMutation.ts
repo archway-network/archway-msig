@@ -1,10 +1,10 @@
-import { ComputedRef } from 'vue';
+import { type ComputedRef } from 'vue';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import { useContracts, useSigningClient } from '@/composables';
 import { Transactions, TransactionMessages } from '@/domain';
 import { useTransactionsStore } from '@/store';
 
-import { AccountConfig, GovernanceProposalId, GovernanceProposalVoteOption } from '@/types';
+import type { AccountConfig, GovernanceProposalId, GovernanceProposalVoteOption } from '@/types';
 
 export const useGovernanceProposalVoteMutation = async (
   accountId: AccountConfig.AccountId,

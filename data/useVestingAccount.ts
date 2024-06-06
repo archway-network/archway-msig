@@ -3,7 +3,7 @@ import { useArchwayClient, useConfig } from '@/composables';
 
 import { VestingAccount } from '@/domain';
 
-import { AccountConfig } from '@/types';
+import { type AccountConfig } from '@/types';
 
 export const useVestingAccount = async (
   accountId: ComputedRef<AccountConfig.AccountId>,

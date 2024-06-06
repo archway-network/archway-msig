@@ -2,7 +2,7 @@ import BrandKeplr from '@/components/Ui/Icons/BrandKeplr.vue';
 import BrandCosmostation from '@/components/Ui/Icons/BrandCosmostation.vue';
 import BrandLeap from '@/components/Ui/Icons/BrandLeap.vue';
 
-import { Wallet, WalletType } from '@/types/wallets';
+import { type Wallet, WalletType } from '@/types/wallets';
 
 const keplrWallet = { id: WalletType.KEPLR, name: 'Keplr', icon: BrandKeplr, troubleshootUrl: 'https://help.keplr.app/en/getting-started' };
 const cosmostationWallet = {

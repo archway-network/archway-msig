@@ -10,7 +10,7 @@
   import { useBulkStakingMutation } from '@/data/useBulkStakingMutation';
   import { useAuthStore, useTransactionsStore } from '@/store';
 
-  import { BulkDelegationBlock } from '@/types';
+  import { type BulkDelegationBlock } from '@/types';
 
   defineProps<{
     validators: Validator[];

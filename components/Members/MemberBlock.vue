@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import { PropType } from 'vue';
+  import { type PropType } from 'vue';
   import { XCircleIcon } from '@heroicons/vue/24/outline';
   import { TextInput } from '@/components/Ui';
   import { Member } from '@/domain';

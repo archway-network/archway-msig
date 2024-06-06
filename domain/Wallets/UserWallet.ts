@@ -1,7 +1,7 @@
-import { OfflineAminoSigner, OfflineDirectSigner } from '@keplr-wallet/types';
+import type { OfflineAminoSigner, OfflineDirectSigner } from '@keplr-wallet/types';
 import { truncateAddress } from '@/utils';
 
-import { WalletAddres, WalletType } from '@/types/wallets';
+import { type WalletAddres, WalletType } from '@/types/wallets';
 
 interface UserWalletContract {
   type: WalletType;

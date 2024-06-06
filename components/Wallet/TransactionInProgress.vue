@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-  import { PropType } from 'vue';
+  import { type PropType } from 'vue';
 
   import { LoadingIcon } from '@/components/Ui';
 
-  import { Wallet } from '@/types/wallets';
+  import { type Wallet } from '@/types/wallets';
 
   defineProps({
     wallet: { type: Object as PropType<Wallet>, required: true },

@@ -1,6 +1,6 @@
 import TokenAmount from './TokenAmount';
 
-import { TokenDenom } from '@/types';
+import { type TokenDenom } from '@/types';
 
 type GovernanceProposalVotesFormattedAttributes = {
   total: string;

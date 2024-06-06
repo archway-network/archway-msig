@@ -3,7 +3,7 @@ import { useContracts, useSigningClient } from '@/composables';
 import { Transactions, TransactionMessages } from '@/domain';
 import { useTransactionsStore } from '@/store';
 
-import { AccountConfig, TreasurySpendBlock } from '@/types';
+import type { AccountConfig, TreasurySpendBlock } from '@/types';
 
 export const useTreasurySpendMutation = async (accountId: AccountConfig.AccountId, walletAddress: ComputedRef<string | undefined>) => {
   const transactionsStore = useTransactionsStore();

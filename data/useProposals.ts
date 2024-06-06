@@ -1,7 +1,7 @@
-import { Ref } from 'vue';
+import { type Ref } from 'vue';
 import { useQuery } from '@tanstack/vue-query';
 import { Proposals, Proposal } from '@/domain';
-import { AccountConfig, Filter, ProposalsFilterTypes, ProposalsFilterType } from '@/types';
+import { type AccountConfig, type Filter, ProposalsFilterTypes, type ProposalsFilterType } from '@/types';
 
 export const useProposals = async (
   defaultFilter: ProposalsFilterType,

@@ -1,10 +1,10 @@
-import { ComputedRef } from 'vue';
+import { type ComputedRef } from 'vue';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import { useContracts, useSigningClient } from '@/composables';
 import { Transactions, TransactionMessages } from '@/domain';
 import { useTransactionsStore } from '@/store';
 
-import { AccountConfig, BulkDelegationBlock } from '@/types';
+import type { AccountConfig, BulkDelegationBlock } from '@/types';
 
 export const useBulkStakingMutation = async (accountId: AccountConfig.AccountId, walletAddress: ComputedRef<string | undefined>) => {
   const transactionsStore = useTransactionsStore();

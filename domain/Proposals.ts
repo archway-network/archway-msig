@@ -1,10 +1,10 @@
-import { QueryFunctionContext } from '@tanstack/vue-query';
+import type { QueryFunctionContext } from '@tanstack/vue-query';
 
 import { useArchwayClient, useContracts } from '@/composables';
 import Proposal from './Proposal';
 import ProposalVote from './ProposalVote';
 
-import { AccountConfig, ProposalId } from '@/types';
+import type { AccountConfig, ProposalId } from '@/types';
 
 export default class Proposals {
   static async all({ queryKey: [{ accountId }] }: QueryFunctionContext<{ accountId: AccountConfig.AccountId }[]>): Promise<Proposal[]> {

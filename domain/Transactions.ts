@@ -1,8 +1,8 @@
 import { SigningArchwayClient } from '@archwayhq/arch3.js';
-import { DeliverTxResponse } from '@cosmjs/stargate';
-import { ExecuteResult, MsgExecuteContractEncodeObject } from '@cosmjs/cosmwasm-stargate';
-import { OfflineAminoSigner, StdFee } from '@cosmjs/amino';
-import { isOfflineDirectSigner, OfflineSigner } from '@cosmjs/proto-signing';
+import { type DeliverTxResponse } from '@cosmjs/stargate';
+import type { ExecuteResult, MsgExecuteContractEncodeObject } from '@cosmjs/cosmwasm-stargate';
+import type { OfflineAminoSigner, StdFee } from '@cosmjs/amino';
+import { isOfflineDirectSigner, type OfflineSigner } from '@cosmjs/proto-signing';
 import { MsgExecuteContract } from 'cosmjs-types/cosmwasm/wasm/v1/tx.js';
 import { TxRaw } from 'cosmjs-types/cosmos/tx/v1beta1/tx.js';
 import { toUtf8 } from '@cosmjs/encoding';
@@ -10,7 +10,7 @@ import { toUtf8 } from '@cosmjs/encoding';
 import UserWalletFactory from './Wallets/UserWalletFactory';
 import { patchSignAmino } from '@/utils/signing';
 
-import { TransactionParams } from '@/types';
+import type { TransactionParams } from '@/types';
 
 class Transactions {
   protected constructor(protected signingClient: SigningArchwayClient) {}

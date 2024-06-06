@@ -1,9 +1,9 @@
-import { ComputedRef, Ref } from 'vue';
+import type { ComputedRef, Ref } from 'vue';
 import { useQuery } from '@tanstack/vue-query';
 import { TokenAmount, WalletBalances } from '@/domain';
-import { AccountConfig, BalancesType } from '@/types';
+import { type AccountConfig, BalancesType } from '@/types';
 
-const DEFAULT_STALE_TIME = 1000 * 60 * 5;  // cache for 5 minutes
+const DEFAULT_STALE_TIME = 1000 * 60 * 5; // cache for 5 minutes
 
 export const useWalletBalance = async (
   accountId: AccountConfig.AccountId,

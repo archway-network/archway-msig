@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import { computed, ref, onMounted, PropType } from 'vue';
+  import { computed, ref, onMounted, type PropType } from 'vue';
   import MarkdownIt from 'markdown-it';
 
   import ProposalHeading from '@/components/Governance/ProposalHeading.vue';

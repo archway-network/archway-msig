@@ -1,6 +1,6 @@
 import TokenAmount from './TokenAmount';
 
-import { TokenDenom } from '@/types';
+import { type TokenDenom } from '@/types';
 
 export default class ValidatorDelegation {
   constructor(public delegator: string, public validator: string, public amount: TokenAmount) {}

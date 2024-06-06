@@ -5,7 +5,7 @@
 </script>
 
 <script lang="ts" setup>
-  import { PropType, ref } from 'vue';
+  import { ref, type PropType } from 'vue';
   import { Listbox, ListboxLabel, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/vue';
   import { Search, ChevronDownIcon } from '@/components/Ui';
   import ValidatorAvatar from '@/components/Staking/ValidatorAvatar.vue';

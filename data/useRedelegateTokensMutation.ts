@@ -1,10 +1,10 @@
-import { ComputedRef } from 'vue';
+import { type ComputedRef } from 'vue';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import { useContracts, useSigningClient } from '@/composables';
 import { TokenAmount, Transactions, TransactionMessages } from '@/domain';
 import { useTransactionsStore } from '@/store';
 
-import { AccountConfig } from '@/types';
+import { type AccountConfig } from '@/types';
 
 export const useRedelegateTokensMutation = async (accountId: AccountConfig.AccountId, walletAddress: ComputedRef<string | undefined>) => {
   const transactionsStore = useTransactionsStore();

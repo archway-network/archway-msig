@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import { PropType } from 'vue';
+  import { type PropType } from 'vue';
   import ProposalHeading from '@/components/Governance/ProposalHeading.vue';
   import { GovernanceProposal } from '@/domain';
 

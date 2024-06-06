@@ -1,4 +1,4 @@
-import { AccountConfig } from '@/types';
+import { type AccountConfig } from '@/types';
 
 export default class Account {
   constructor(public id: AccountConfig.AccountId, public title: string, public description: string) {}

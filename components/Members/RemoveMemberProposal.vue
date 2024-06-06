@@ -1,5 +1,5 @@
 <script lang="tsx" setup>
-  import { ref, PropType } from 'vue';
+  import { ref, type PropType } from 'vue';
   import { storeToRefs } from 'pinia';
   import { Link, PrimaryButton, TextInput, TextareaInput } from '@/components/Ui';
   import SubmitProposalTransactionSuccessful from '@/components/Proposals/SubmitProposalTransactionSuccessful.vue';

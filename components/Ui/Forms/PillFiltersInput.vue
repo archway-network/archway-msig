@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import { useAttrs, PropType } from 'vue';
+  import { useAttrs, type PropType } from 'vue';
   import { FilterButton, FiltersInput } from '@/components/Ui/Forms/FiltersInput';
 
   import type { Filter } from '@/types';

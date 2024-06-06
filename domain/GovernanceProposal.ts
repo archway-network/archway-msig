@@ -4,7 +4,7 @@ import GovernanceProposalVotes from './GovernanceProposalVotes';
 import TokenAmount from './TokenAmount';
 import { formatDate, formatFullDateTime } from '@/utils';
 
-import { GovernanceProposalStatus, TokenDenom } from '@/types';
+import { GovernanceProposalStatus, type TokenDenom } from '@/types';
 
 type CosmosProposalStatus =
   | 'PROPOSAL_STATUS_UNSPECIFIED'
@@ -51,7 +51,7 @@ export default class GovernanceProposal {
       total_deposit,
       final_tally_result,
       title,
-      summary
+      summary,
     } = attributes;
 
     return new GovernanceProposal(

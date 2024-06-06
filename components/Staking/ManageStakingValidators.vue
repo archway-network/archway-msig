@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-  import { PropType } from 'vue';
+  import { type PropType } from 'vue';
   import { PlusIcon } from '@heroicons/vue/24/solid';
   import { PrimaryButton } from '@/components/Ui';
   import ManageStakingValidatorBlock from '@/components/Staking/ManageStakingValidatorBlock.vue';
   import { Validator } from '@/domain';
 
-  import { BulkDelegationBlock } from '@/types';
+  import { type BulkDelegationBlock } from '@/types';
 
   const props = defineProps({
     modelValue: { type: Array as PropType<BulkDelegationBlock[]>, default: () => [] },

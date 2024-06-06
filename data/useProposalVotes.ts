@@ -1,7 +1,7 @@
-import { Ref } from 'vue';
+import { type Ref } from 'vue';
 import { useQuery } from '@tanstack/vue-query';
 import { Proposals, ProposalVote } from '@/domain';
-import { AccountConfig, ProposalId } from '@/types';
+import type { AccountConfig, ProposalId } from '@/types';
 
 export const useProposalVotes = async (
   accountId: AccountConfig.AccountId,

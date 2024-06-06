@@ -4,7 +4,7 @@
   import { useNavigation } from '@/composables';
   import { Navigation } from '@/domain';
 
-  import { AccountConfig, TooltipPosition } from '@/types';
+  import { type AccountConfig, TooltipPosition } from '@/types';
 
   const { expanded, toggle, setCurrentNavigation } = useNavigation();
   const route = useRoute();

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import { PropType } from 'vue';
+  import { type PropType } from 'vue';
   import { Tokens } from '@/components/Ui';
   import ProposalVotingSkeleton from '@/components/Governance/ProposalVotingSkeleton.vue';
   import ProposalVotingProgress from '@/components/Governance/ProposalVotingProgress.vue';

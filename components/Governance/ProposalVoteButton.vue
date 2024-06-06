@@ -1,4 +1,5 @@
 <script lang="tsx" setup>
+  import { type PropType } from 'vue';
   import { storeToRefs } from 'pinia';
   import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue';
   import { ChevronDownIcon, PrimaryButton } from '@/components/Ui';
@@ -8,7 +9,7 @@
   import { useAuthStore, useTransactionsStore } from '@/store';
   import { useWalletBalance } from '@/data/useWalletBalance';
 
-  import { BalancesType, GovernanceProposalId, GovernanceProposalVoteOption } from '@/types';
+  import { BalancesType, type GovernanceProposalId, type GovernanceProposalVoteOption } from '@/types';
 
   const props = defineProps({
     proposalId: { type: [String, Number] as PropType<GovernanceProposalId>, required: true },

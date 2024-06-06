@@ -1,6 +1,6 @@
-import { computed, Ref, ComputedRef } from 'vue';
+import { computed, type Ref, type ComputedRef } from 'vue';
 
-import { Filter, ValidatorsFilterTypes, ValidatorsFilterType } from '@/types';
+import { type Filter, ValidatorsFilterTypes, type ValidatorsFilterType } from '@/types';
 
 export const useValidatorsFilters = (
   isAuthenticated: ComputedRef<boolean>

@@ -1,5 +1,5 @@
 <script lang="tsx" setup>
-  import { ref, PropType } from 'vue';
+  import { type PropType } from 'vue';
   import { storeToRefs } from 'pinia';
 
   import { Link, PrimaryButton, TooltipWithIcon, TextareaInput, TokenInput } from '@/components/Ui';
@@ -62,11 +62,7 @@
   <div class="space-y-6">
     <ValidatorsSelector label="Validator" :validators="validators" v-model="selectedValidator" />
     <TextareaInput label="Proposal description" v-model="description" />
-    <TokenInput
-      :max-available-amount="maxAvailableAmount"
-      v-model="amountToStake"
-      v-model:is-valid="amountIsValid"
-    />
+    <TokenInput :max-available-amount="maxAvailableAmount" v-model="amountToStake" v-model:is-valid="amountIsValid" />
     <div class="flex flex-row justify-between pt-8">
       <Link @click="emit('close')">Cancel</Link>
       <div class="flex flex-row space-x-2">

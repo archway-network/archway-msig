@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import { ref, PropType } from 'vue';
+  import { ref, type PropType } from 'vue';
   import { storeToRefs } from 'pinia';
   import { DefaultModal, FiltersInput, LoadingIcon } from '@/components/Ui';
   import StakeTokens from '@/components/Staking/StakeTokens.vue';

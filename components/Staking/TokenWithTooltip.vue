@@ -5,7 +5,7 @@
 </script>
 
 <script lang="ts" setup>
-  import { PropType } from 'vue';
+  import { type PropType } from 'vue';
   import { LoadingPulse, Tokens } from '@/components/Ui';
   import { TokenAmount } from '@/domain';
 

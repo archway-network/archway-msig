@@ -1,7 +1,7 @@
-import { Ref } from 'vue';
+import { type Ref } from 'vue';
 import { useQuery } from '@tanstack/vue-query';
 import { GovernanceProposals, GovernanceProposalVotes } from '@/domain';
-import { GovernanceProposalId } from '@/types';
+import type { GovernanceProposalId } from '@/types';
 
 export const useGovernanceProposalVotes = async (
   proposalId: GovernanceProposalId,

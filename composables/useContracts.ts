@@ -1,6 +1,6 @@
 import { computed } from 'vue';
 
-import { AccountConfig } from '@/types';
+import { type AccountConfig } from '@/types';
 
 export const useContracts = (accountId: AccountConfig.AccountId) => {
   const runtimeConfig = useRuntimeConfig();

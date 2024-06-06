@@ -1,7 +1,7 @@
 import TokenAmount from './TokenAmount';
 import { formatPercent } from '@/utils';
 
-import { TokenDenom, ValidatorStatus } from '@/types';
+import { type TokenDenom, ValidatorStatus } from '@/types';
 
 type CosmosValidatorStatus =
   | 'BOND_STATUS_UNSPECIFIED'

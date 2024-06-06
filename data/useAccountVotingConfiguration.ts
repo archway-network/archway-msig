@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/vue-query';
 import { useArchwayClient, useContracts } from '@/composables';
 
 import { AccountVotingConfiguration } from '@/domain';
-import { AccountConfig } from '@/types';
+import { type AccountConfig } from '@/types';
 
 export const useAccountVotingConfiguration = async (accountId: AccountConfig.AccountId, walletAddress: ComputedRef<string | undefined>) => {
   const { proposalsContractAddress } = useContracts(accountId);

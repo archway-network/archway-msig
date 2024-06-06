@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import { PropType } from 'vue';
+  import { type PropType } from 'vue';
   import BigNumber from 'bignumber.js';
   import { XCircleIcon } from '@heroicons/vue/24/outline';
   import { TextInput } from '@/components/Ui';
@@ -7,7 +7,7 @@
   import { useConfig } from '@/composables';
   import { TokenAmount, Validator } from '@/domain';
 
-  import { BulkDelegationBlock } from '@/types';
+  import { type BulkDelegationBlock } from '@/types';
 
   const props = defineProps({
     block: { type: Object as PropType<BulkDelegationBlock>, required: true },

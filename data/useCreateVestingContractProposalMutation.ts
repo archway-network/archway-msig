@@ -3,7 +3,7 @@ import { useContracts, useSigningClient } from '@/composables';
 import { Transactions, TransactionMessages, TokenAmount } from '@/domain';
 import { useTransactionsStore } from '@/store';
 
-import { AccountConfig } from '@/types';
+import { type AccountConfig } from '@/types';
 
 export const useCreateVestingContractProposalMutation = async (
   accountId: AccountConfig.AccountId,
@@ -38,7 +38,7 @@ export const useCreateVestingContractProposalMutation = async (
       canStake: boolean;
       liquidStaking: boolean;
     }) => {
-      if (!walletAddress.value || !vestingCodeId.value || !vestingDeployerContract.value ) return;
+      if (!walletAddress.value || !vestingCodeId.value || !vestingDeployerContract.value) return;
 
       const signingClient = useSigningClient();
       const transactions = Transactions.make(signingClient);

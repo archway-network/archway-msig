@@ -1,4 +1,4 @@
-import { ITransport } from '@/types';
+import { type ITransport } from '@/types';
 import { useConfig } from './useConfig';
 
 /**
@@ -9,4 +9,4 @@ import { useConfig } from './useConfig';
 export const useTransport = (transport?: ITransport) => {
   const { transport: defaultTransport } = useConfig();
   return transport ?? defaultTransport;
-}
+};

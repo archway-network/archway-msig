@@ -1,4 +1,4 @@
-import { ProposalVoteOption } from '@/types';
+import { type ProposalVoteOption } from '@/types';
 
 export default class ProposalVote {
   constructor(public voter: string, public vote: ProposalVoteOption, public power: number, public rationale?: string) {}

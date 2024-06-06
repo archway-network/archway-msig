@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/vue-query';
 import { useArchwayClient, useContracts } from '@/composables';
 
 import { Account, Member } from '@/domain';
-import { AccountConfig } from '@/types';
+import { type AccountConfig } from '@/types';
 
 export const useAccount = async (accountId: AccountConfig.AccountId, walletAddress: ComputedRef<string | undefined>) => {
   const { mainContractAddress, proposalsContractAddress, membersContractAddress } = useContracts(accountId);

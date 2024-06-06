@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-  import { PropType } from 'vue';
+  import { type PropType } from 'vue';
   import { XCircleIcon } from '@heroicons/vue/24/outline';
 
   import { TextInput } from '@/components/Ui';
   import { TokenAmount } from '@/domain';
   import { useConfig } from '@/composables';
 
-  import { TreasurySpendBlock } from '@/types';
+  import { type TreasurySpendBlock } from '@/types';
 
   const props = defineProps({
     block: { type: Object as PropType<TreasurySpendBlock | { amount: undefined; address: undefined }>, required: true },

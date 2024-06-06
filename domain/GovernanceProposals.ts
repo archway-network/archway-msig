@@ -1,9 +1,9 @@
-import { QueryFunctionContext } from '@tanstack/vue-query';
+import { type QueryFunctionContext } from '@tanstack/vue-query';
 import { useConfig } from '@/composables';
 import GovernanceProposal from './GovernanceProposal';
 import GovernanceProposalVotes from './GovernanceProposalVotes';
 
-import { GovernanceProposalId, GovernanceProposalsFilterType, GovernanceProposalsFilterTypes } from '@/types';
+import { type GovernanceProposalId, type GovernanceProposalsFilterType, GovernanceProposalsFilterTypes } from '@/types';
 
 export default class GovernanceProposals {
   static async all({
@@ -17,13 +17,13 @@ export default class GovernanceProposals {
     });
 
     return data?.proposals
-      .filter((attributes) => {
+      .filter(attributes => {
         if (filter === GovernanceProposalsFilterTypes.ALL) {
           return attributes.status !== 'PROPOSAL_STATUS_DEPOSIT_PERIOD';
         }
         return true;
       })
-      .map((attributes) => GovernanceProposal.make(attributes, tokenDenom));
+      .map(attributes => GovernanceProposal.make(attributes, tokenDenom));
   }
 
   static async allIdsFor({ queryKey: [{ voter }] }: QueryFunctionContext<{ voter?: string }[]>): Promise<GovernanceProposalId[]> {

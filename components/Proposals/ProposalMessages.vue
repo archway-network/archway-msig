@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import { PropType } from 'vue';
+  import { type PropType } from 'vue';
   import VueJsonPretty from 'vue-json-pretty';
   import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue';
   import _ from 'lodash';

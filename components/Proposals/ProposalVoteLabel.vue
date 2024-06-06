@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-  import { PropType } from 'vue';
+  import { type PropType } from 'vue';
   import { HandThumbUpIcon, HandThumbDownIcon, HandRaisedIcon } from '@heroicons/vue/24/outline';
 
-  import { ProposalVoteOption } from '@/types';
+  import { type ProposalVoteOption } from '@/types';
 
   defineProps({
     vote: { type: String as PropType<ProposalVoteOption>, required: true },

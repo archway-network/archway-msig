@@ -3,7 +3,7 @@ import { useContracts, useSigningClient } from '@/composables';
 import { Transactions } from '@/domain';
 import { useTransactionsStore } from '@/store';
 
-import { AccountConfig, ProposalId, ProposalVoteOption } from '@/types';
+import type { AccountConfig, ProposalId, ProposalVoteOption } from '@/types';
 
 export const useProposalVoteMutation = async (accountId: AccountConfig.AccountId, walletAddress: ComputedRef<string | undefined>) => {
   const transactionsStore = useTransactionsStore();

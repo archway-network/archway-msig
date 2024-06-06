@@ -1,5 +1,5 @@
 <script lang="tsx" setup>
-  import { PropType } from 'vue';
+  import { type PropType } from 'vue';
   import { DefaultModal } from '@/components/Ui';
   import RemoveMemberProposal from '@/components/Members/RemoveMemberProposal.vue';
 
