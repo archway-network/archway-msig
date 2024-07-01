@@ -118,6 +118,8 @@ export default class Proposal {
 
         if (msgType !== 'wasm') return msgType;
 
+        if (message?.wasm?.['instantiate'] !== undefined) return 'contract-instantiate';
+
         const encodedMessage = parseEncodedMessage(message?.wasm?.execute.msg, true);
 
         if (encodedMessage.includes('update_config')) return 'voting-configuration';
@@ -143,6 +145,7 @@ export default class Proposal {
           | 'vesting-claim-rewards'
           | 'vesting-withdraw-rewards'
           | 'vesting-withdraw-tokens'
+          | 'contract-instantiate'
       ) =>
         ({
           staking: ProposalMessageType.STAKING,
@@ -154,6 +157,7 @@ export default class Proposal {
           'vesting-withdraw-rewards': ProposalMessageType.VESTING_WITHDRAW_REWARDS,
           'vesting-withdraw-tokens': ProposalMessageType.VESTING_WITHDRAW_TOKENS,
           'voting-configuration': ProposalMessageType.VOTING_CONFIGURATION,
+          'contract-instantiate': ProposalMessageType.CONTRACT_INSTANTIATE,
         }[type])
     );
   }

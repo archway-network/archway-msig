@@ -32,6 +32,7 @@ export enum ProposalMessageType {
   VESTING_WITHDRAW_REWARDS = 'vesting-withdraw-rewards',
   VESTING_WITHDRAW_TOKENS = 'vesting-withdraw-tokens',
   VOTING_CONFIGURATION = 'voting-configuration',
+  CONTRACT_INSTANTIATE = 'contract-instantiate',
 }
 
 export enum ProposalStatus {

@@ -42,7 +42,7 @@
       <h2 class="title-3 pb-2">{{ proposal.title }}</h2>
       <div class="text-gray-800 caption pb-6">Voting deadline {{ proposal.formatted.votingDeadline }}</div>
       <ProposalVotes class="pb-8" :proposal="proposal" />
-      <div class="markdown flex flex-col space-y-2" v-html="html" />
+      <div class="markdown flex flex-col space-y-2 break-words" v-html="html" />
       <ProposalMessages :messages="proposal.msgs" class="pt-6" />
     </div>
     <div class="w-2/5 flex flex-col divide-y divide-gray-warm">
