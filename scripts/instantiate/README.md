@@ -28,17 +28,17 @@
 
 2. Run the following command to instantiate the contracts on Constantine:
   ```
-  bash instantiate_contracts.json
+  bash instantiate_contracts.sh
   ```
 
   To instantiate them on Archway mainnet, add the `--mainnet` flag, like this:
   ```
-  bash instantiate_contracts.json --mainnet
+  bash instantiate_contracts.sh --mainnet
   ```
 
   To instantiate them on Titus devnet, add the `--devnet` flag, like this:
   ```
-  bash instantiate_contracts.json --devnet
+  bash instantiate_contracts.sh --devnet
   ```
 
 Alternatively you can set the RUNTIME_ENVIRONMENT variable in a `.env` file at the root of this project, with any of the 3 options:

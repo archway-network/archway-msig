@@ -11,7 +11,7 @@ export const useGovernanceProposalVoteMutation = async (
   walletAddress: ComputedRef<string | undefined>
 ) => {
   const transactionsStore = useTransactionsStore();
-  const { preProposeContractAddress } = useContracts(accountId);
+  const { mainContractAddress, preProposeContractAddress } = useContracts(accountId);
 
   const queryClient = useQueryClient();
 
@@ -31,7 +31,7 @@ export const useGovernanceProposalVoteMutation = async (
 
       const signingClient = useSigningClient();
       const transactions = Transactions.make(signingClient);
-      const msg = TransactionMessages.governanceVoteProposal(title, description, proposalId, vote);
+      const msg = TransactionMessages.governanceVoteProposal(mainContractAddress.value, title, description, proposalId, vote);
       return transactions.execute(preProposeContractAddress.value, walletAddress.value, msg);
     },
 
