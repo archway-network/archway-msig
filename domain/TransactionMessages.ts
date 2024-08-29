@@ -1,8 +1,7 @@
 import BigNumber from 'bignumber.js';
 import { toBase64 } from '@cosmjs/encoding';
 import { Any } from 'cosmjs-types/google/protobuf/any';
-import { MsgSubmitProposal, MsgVote } from 'cosmjs-types/cosmos/gov/v1/tx';
-import { VoteOption } from 'cosmjs-types/cosmos/gov/v1/gov';
+import { MsgSubmitProposal } from 'cosmjs-types/cosmos/gov/v1/tx';
 import { MsgSoftwareUpgrade, MsgCancelUpgrade } from 'cosmjs-types/cosmos/upgrade/v1beta1/tx';
 import { MsgCommunityPoolSpend } from 'cosmjs-types/cosmos/distribution/v1beta1/tx';
 
@@ -305,32 +304,13 @@ class TransactionMessages {
     return TransactionMessages.makeProposal(title, description, msgs);
   }
 
-  static governanceVoteProposal(
-    voter: string,
-    title: string,
-    description: string,
-    proposalId: GovernanceProposalId,
-    voteOption: GovernanceProposalVoteOption
-  ) {
+  static governanceVoteProposal(title: string, description: string, proposalId: GovernanceProposalId, vote: GovernanceProposalVoteOption) {
     const msgs = {
-      stargate: {
-        type_url: '/cosmos.gov.v1.MsgVote',
-        value: toBase64(
-          Uint8Array.from(
-            MsgVote.encode(
-              MsgVote.fromPartial({
-                proposalId: BigInt(proposalId),
-                voter,
-                option: {
-                  yes: VoteOption.VOTE_OPTION_YES,
-                  no: VoteOption.VOTE_OPTION_NO,
-                  abstain: VoteOption.VOTE_OPTION_ABSTAIN,
-                  no_with_veto: VoteOption.VOTE_OPTION_NO_WITH_VETO,
-                }[voteOption],
-              })
-            ).finish()
-          )
-        ),
+      gov: {
+        vote: {
+          proposal_id: parseInt(proposalId.toString()),
+          vote,
+        },
       },
     };
 
