@@ -1,9 +1,9 @@
 import { computed, type ComputedRef } from 'vue';
-
 import { TriompheChainInfo, ConstantineChainInfo, TitusChainInfo } from '@archway-kit/wallet';
 
-import type { TokenDenom, ITransport } from '@/types';
 import { restTransport, rpcTransport } from '@/services/transports';
+
+import type { TokenDenom, ITransport } from '@/types';
 
 type AppConfigExternalLinks = {
   ARCHWAY_DOCS: string;

@@ -45,7 +45,7 @@ if [ "${1-}" == '--mainnet' ] || [ "${RUNTIME_ENVIRONMENT:-}" == "mainnet" ]; th
   prepropose_code_id=6
   cw4_code_id=3
 elif [ "${1-}" == '--devnet' ] || [ "${RUNTIME_ENVIRONMENT:-}" == "devnet" ]; then
-curl -fsSL 'https://raw.githubusercontent.com/archway-network/networks/main/devnets/archwaydevnet/chain.json' | ARCHWAY_SKIP_VERSION_CHECK=true archway config chains import || true
+  curl -fsSL 'https://raw.githubusercontent.com/archway-network/networks/main/devnets/archwaydevnet/chain.json' | ARCHWAY_SKIP_VERSION_CHECK=true archway config chains import || true
   chain_id="titus-4"
   main_code_id=2
   voting_code_id=5
