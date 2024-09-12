@@ -1,5 +1,5 @@
-import { AppCurrency } from '@keplr-wallet/types';
-import { Account as Bech32Account } from '@cosmjs/stargate';
+import { type AppCurrency } from '@keplr-wallet/types';
+import { type Account as Bech32Account } from '@cosmjs/stargate';
 
 export * from './proposals';
 export * from './transactions';

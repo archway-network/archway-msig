@@ -12,7 +12,7 @@ import { encodeMessageAsBase64, toArray } from '@/utils';
 import {
   type BulkDelegationBlock,
   type GovernanceProposalId,
-  type GovernanceProposalType,
+  GovernanceProposalType,
   type GovernanceProposalVoteOption,
   type ModuleUpdate,
   MsgUpdateParamsMapper,
@@ -308,7 +308,7 @@ class TransactionMessages {
     const msgs = {
       gov: {
         vote: {
-          proposal_id: proposalId,
+          proposal_id: parseInt(proposalId.toString()),
           vote,
         },
       },

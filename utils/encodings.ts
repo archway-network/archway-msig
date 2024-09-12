@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { fromBase64, fromUtf8, toBase64, toUtf8 } from '@cosmjs/encoding';
 import { TextProposal } from 'cosmjs-types/cosmos/gov/v1beta1/gov';
 import { MsgSubmitProposal } from 'cosmjs-types/cosmos/gov/v1beta1/tx';
-import { MsgExecLegacyContent, MsgSubmitProposal as MsgSubmitProposalV1 } from 'cosmjs-types/cosmos/gov/v1/tx';
+import { MsgExecLegacyContent, MsgSubmitProposal as MsgSubmitProposalV1, MsgVote } from 'cosmjs-types/cosmos/gov/v1/tx';
 import { CommunityPoolSpendProposal } from 'cosmjs-types/cosmos/distribution/v1beta1/distribution';
 import { ParameterChangeProposal } from 'cosmjs-types/cosmos/params/v1beta1/params';
 import { CancelSoftwareUpgradeProposal, SoftwareUpgradeProposal } from 'cosmjs-types/cosmos/upgrade/v1beta1/upgrade';
@@ -51,6 +51,11 @@ export const parseObjectWithEncodedMessages = (input: unknown): any => {
         return parseObjectWithEncodedMessages({
           ...value,
           value: MsgExecLegacyContent.decode(byteArray),
+        });
+      case '/cosmos.gov.v1.MsgVote':
+        return parseObjectWithEncodedMessages({
+          ...value,
+          value: MsgVote.decode(byteArray),
         });
       case '/cosmos.gov.v1beta1.TextProposal':
         return parseObjectWithEncodedMessages({
