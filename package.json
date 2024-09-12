@@ -23,9 +23,9 @@
     "prettier": "^2.8.7"
   },
   "dependencies": {
-    "@archway-kit/utils": "^0.4.12",
-    "@archway-kit/wallet": "^0.4.12",
-    "@archwayhq/arch3.js": "^0.7.0",
+    "@archway-kit/utils": "^0.5.36",
+    "@archway-kit/wallet": "^0.5.36",
+    "@archwayhq/arch3.js": "^0.7.3",
     "@headlessui/tailwindcss": "^0.1.2",
     "@headlessui/vue": "^1.7.12",
     "@heroicons/vue": "^2.0.18",
