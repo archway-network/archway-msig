@@ -1,14 +1,14 @@
 <script lang="ts" setup>
   import { DefaultModal } from '@/components/Ui';
   import ManageStakingProposal from '@/components/Staking/ManageStakingProposal.vue';
-  import { useValidatorsActive } from '@/data/useValidatorsActive';
+  import { useStakingValidators } from '@/data/useStakingValidators';
 
   defineProps({
     isOpen: { type: Boolean, default: false },
   });
   const emit = defineEmits(['close']);
 
-  const { validators, loading } = await useValidatorsActive();
+  const { validators, loading } = await useStakingValidators();
 </script>
 
 <template>
