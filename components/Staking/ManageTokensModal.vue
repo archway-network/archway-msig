@@ -9,7 +9,7 @@
   import { useAuthStore } from '@/store';
   import { useAccountId } from '@/data/useAccountId';
   import { useWalletBalance } from '@/data/useWalletBalance';
-  import { useValidatorsActive } from '@/data/useValidatorsActive';
+  import { useStakingValidators } from '@/data/useStakingValidators';
   import { useValidatorsWithMyDelegations } from '@/data/useValidatorsWithMyDelegations';
   import { useValidatorsDelegations } from '@/data/useValidatorsDelegations';
 
@@ -38,12 +38,12 @@
 
   const { available, loading: isLoadingAvailableBalance } = await useWalletBalance(accountId.value, walletAddress);
 
-  const { validators: activeValidators, loading: isLoadingValidators } = await useValidatorsActive();
+  const { validators: stakingValidators, loading: isLoadingStakingValidators } = await useStakingValidators();
   const { validators: delegates, loading: isLoadingDelegates } = await useValidatorsWithMyDelegations(accountId);
   const { delegations, loading: isLoadingDelegations } = await useValidatorsDelegations(accountId, isAuthenticated);
 
   const loading = computed(
-    () => isLoadingAvailableBalance.value || isLoadingValidators.value || isLoadingDelegates.value || isLoadingDelegations.value
+    () => isLoadingAvailableBalance.value || isLoadingStakingValidators.value || isLoadingDelegates.value || isLoadingDelegations.value
   );
 </script>
 
@@ -60,11 +60,11 @@
         </div>
         <template v-else>
           <StakeTokens
-            :validators="activeValidators"
+            :validators="stakingValidators"
             :validator="validator"
             :available="available"
             @close="emit('close')"
-            v-if="activeValidators && selectedAction === Actions.Stake"
+            v-if="stakingValidators && selectedAction === Actions.Stake"
           />
           <UnstakeTokens
             :delegates="delegates"
@@ -75,11 +75,11 @@
           />
           <RedelegateTokens
             :delegates="delegates"
-            :validators="activeValidators"
+            :validators="stakingValidators"
             :delegations="delegations"
             :validator="validator"
             @close="emit('close')"
-            v-if="activeValidators && delegates && selectedAction === Actions.Redelegate"
+            v-if="stakingValidators && delegates && selectedAction === Actions.Redelegate"
           />
         </template>
       </div>
